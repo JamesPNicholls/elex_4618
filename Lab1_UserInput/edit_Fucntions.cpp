@@ -56,7 +56,7 @@ void print_Menu()
 
 void print_Grades(student_Info &new_Student, int current_student)
 {
-	std::cout << " #	Student	Lab	Quiz	Midterm		Final Exam	Final Grade\n";
+	std::cout << " #	Student		Lab	Quiz	Midterm		Final Exam	Final Grade\n";
 	std::cout << " " << current_student;
 	std::cout << "	"<<  new_Student.student_Num;
 	std::cout << "	" << new_Student.lab_Grade;

@@ -40,7 +40,7 @@ int main()
             {
                 print_Grades(new_Students[i], i);
             }
-               
+            std::cout << "\n";
         }
         else if (command == 'q' || command == 'Q') // Quit Application
         {

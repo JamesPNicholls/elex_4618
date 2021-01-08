@@ -3,7 +3,7 @@
 #include <iostream>
 #include "main.h"
 
-int number_of_student = 1;
+int number_of_student = 0;
 int main()
 {
     struct student_Info new_Students[100];
@@ -25,7 +25,7 @@ int main()
             uint8_t temp_student_num;
             std::cout << "Student to Edit: ";
             std::cin >> temp_student_num;
-            if (temp_student_num > number_of_student)
+            if (temp_student_num < number_of_student)
             {
                 std::cout << "Student does not exist\n\n";
             }
@@ -37,9 +37,11 @@ int main()
         }
         else if (command == 'p' || command == 'P') // Print Grades
         {
-            int i = 0;
-            for()
-               print_Grades(new_Students[ZERO_STUDENT]);
+            for ( int i = 0; i < number_of_student; i++)
+            {
+                print_Grades(new_Students[ZERO_STUDENT], i);
+            }
+               
         }
         else if (command == 'q' || command == 'Q') // Quit Application
         {

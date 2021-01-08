@@ -15,9 +15,8 @@ struct student_Info {
 
 void add_Student(student_Info &new_Student);
 void edit_Student(student_Info &new_Student);
+void print_Grades(student_Info &new_Student, uint8_t current_student);
 void print_Menu();
-void print_Grades();
-
 
 #endif // !MAIN_H
 

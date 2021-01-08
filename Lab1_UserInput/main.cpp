@@ -17,29 +17,28 @@ int main()
 
         if(command == 'a' || command == 'A') //add student
         {
-            add_Student( new_Students[number_of_student]);
+            add_Student(new_Students[number_of_student]);
             number_of_student++;
         }
         else if(command == 'e' || command == 'E') // edit student
         {
-            uint8_t temp_student_num;
+            int temp_student_num;
             std::cout << "Student to Edit: ";
             std::cin >> temp_student_num;
-            if (temp_student_num < number_of_student)
+            if (temp_student_num > number_of_student)
             {
                 std::cout << "Student does not exist\n\n";
             }
             else
             {
                 edit_Student(new_Students[temp_student_num]);
-                break;
             }            
         }
         else if (command == 'p' || command == 'P') // Print Grades
         {
             for ( int i = 0; i < number_of_student; i++)
             {
-                print_Grades(new_Students[ZERO_STUDENT], i);
+                print_Grades(new_Students[i], i);
             }
                
         }

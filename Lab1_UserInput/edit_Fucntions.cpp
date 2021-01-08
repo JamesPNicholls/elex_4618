@@ -54,15 +54,25 @@ void print_Menu()
 	std::cout << "(Q)uit\n";
 }//void print_Menu()
 
-void print_Grades(student_Info &new_Student, uint8_t current_student)
+void print_Grades(student_Info &new_Student, int current_student)
 {
-	std::cout << "  #		Student		Lab		Quiz	Midterm		Final Exam		Final Grade";
+	std::cout << " #	Student	Lab	Quiz	Midterm		Final Exam	Final Grade\n";
 	std::cout << " " << current_student;
-	std::cout << "     "<< new_Student.student_Num;
-	std::cout << "     " << new_Student.lab_Grade;
-	std::cout << "     " << new_Student.quiz_Grade;
-	std::cout << "     " << new_Student.midterm_Grade;
-	std::cout << "     \n" << new_Student.finalExam_Grade;
-
+	std::cout << "	"<<  new_Student.student_Num;
+	std::cout << "	" << new_Student.lab_Grade;
+	std::cout << "	" << new_Student.quiz_Grade;
+	std::cout << "	" << new_Student.midterm_Grade;
+	std::cout << "		" << new_Student.finalExam_Grade;
+	std::cout << "		" << final_grade(new_Student) << "\n\n";
 }//void print_Grades(student_Info &new_Student, uint8_t current_student)
 
+float final_grade(student_Info& new_Student)
+{
+	float quiz			= new_Student.quiz_Grade;       //10%
+	float final_mark	= new_Student.finalExam_Grade;  //30%
+	float lab			= new_Student.lab_Grade;		//40%
+	float midterm		= new_Student.midterm_Grade;    //20%
+
+	float overall = (quiz * 1 / 10 + final_mark * 3 / 10 + lab * 4 / 10 + midterm * 2 / 10);
+	return overall;
+}

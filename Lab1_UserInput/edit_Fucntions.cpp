@@ -46,7 +46,7 @@ void edit_Student(student_Info &new_Student)
 void print_Menu()
 {
 	std::cout << "*****************************************\n";
-	std::cout << " ELEX4618 Grade System, by STUDENT NAME  \n";
+	std::cout << " ELEX4618 Grade System, by James Nicholls  \n";
 	std::cout << "*****************************************\n";
 	std::cout << "(A)dd student\n";
 	std::cout << "(E)dit student\n";

@@ -3,7 +3,6 @@
 #define MAIN_H
 
 #define CLASS_SIZE 100  // size of the class used to generate the struct of students
-#define ZERO_STUDENT 0  // 
 
 #define LAB_COEFF       4
 #define FINAL_COEFF     3

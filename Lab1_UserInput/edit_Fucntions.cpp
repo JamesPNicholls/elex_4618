@@ -1,12 +1,15 @@
 #include "main.h"
 #include <iostream>
 
-void add_Student()
+void add_Student(float number_of_student)
 {
 
 
 }
-void edit_Student();
+void edit_Student()
+{
+
+}
 void print_Menu()
 {
 	std::cout << "*****************************************\n";
@@ -18,4 +21,7 @@ void print_Menu()
 	std::cout << "(P)rint grade\n";
 	std::cout << "(Q)uit\n";
 }
-void print_Grades();
+void print_Grades()
+{
+
+}

@@ -73,6 +73,6 @@ float final_grade(student_Info& new_Student)
 	float lab			= new_Student.lab_Grade;		//40%
 	float midterm		= new_Student.midterm_Grade;    //20%
 
-	float overall = (quiz * 1 / 10 + final_mark * 3 / 10 + lab * 4 / 10 + midterm * 2 / 10);
+	float overall = (quiz * QUIZ_COEFF + final_mark * FINAL_COEFF + lab * LAB_COEFF + midterm * MIDTERM_COEFF)/WEIGHT_DIVISOR; //Takes the weighted average of the grades
 	return overall;
 }//float final_grade(student_Info& new_Student)

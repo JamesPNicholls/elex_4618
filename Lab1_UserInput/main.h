@@ -5,6 +5,12 @@
 #define CLASS_SIZE 100  // size of the class used to generate the struct of students
 #define ZERO_STUDENT 0  // 
 
+#define LAB_COEFF       4
+#define FINAL_COEFF     3
+#define QUIZ_COEFF      1
+#define MIDTERM_COEFF   2
+#define WEIGHT_DIVISOR  10
+
 struct student_Info {
     char    student_Num[9]; //
     float   lab_Grade;

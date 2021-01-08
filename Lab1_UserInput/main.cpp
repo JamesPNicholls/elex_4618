@@ -31,14 +31,14 @@ int main()
             }
             else
             {
-                edit_Student(new_Students[temp_student_num]);// chooses the 
+                edit_Student(new_Students[temp_student_num]);
             }            
         }
         else if (command == 'p' || command == 'P') // Print Grades
         {
             for ( int i = 0; i < number_of_student; i++)
             {
-                print_Grades(new_Students[i], i);
+                print_Grades(new_Students[i], i);//print each of the students stored in the 'new_student' array
             }
             std::cout << "\n";
         }

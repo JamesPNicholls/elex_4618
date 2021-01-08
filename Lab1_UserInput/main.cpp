@@ -12,7 +12,7 @@ int main()
     while (1)
     {
         print_Menu(); //Prints menu showing the commands
-        std::cout << "Choose commands: \n";
+        std::cout << "Choose commands: ";
         std::cin >> command;//waits for input command
 
         if(command == 'a' || command == 'A') //add student

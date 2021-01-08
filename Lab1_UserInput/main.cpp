@@ -25,13 +25,13 @@ int main()
             int temp_student_num;
             std::cout << "Student to Edit: ";
             std::cin >> temp_student_num;
-            if (temp_student_num > number_of_student)
+            if (temp_student_num >= number_of_student)//check to see if a valid student is selected
             {
                 std::cout << "Student does not exist\n\n";
             }
             else
             {
-                edit_Student(new_Students[temp_student_num]);
+                edit_Student(new_Students[temp_student_num]);// chooses the 
             }            
         }
         else if (command == 'p' || command == 'P') // Print Grades

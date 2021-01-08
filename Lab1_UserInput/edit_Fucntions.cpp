@@ -6,24 +6,40 @@ void add_Student(student_Info &new_Student)
 	std::cout << "\nAdding Student\n";
 
 	std::cout << " Student Number: ";
-	std::cin >> new_Student.student_Num;
+	std::cin  >> new_Student.student_Num;
 
 	std::cout << " Lab Grade: ";
-	std::cin >> new_Student.lab_Grade;
+	std::cin  >> new_Student.lab_Grade;
 
 	std::cout << " Quiz Grade: ";
-	std::cin >> new_Student.quiz_Grade;
+	std::cin  >> new_Student.quiz_Grade;
 
 	std::cout << " Midterm Grade: ";
-	std::cin >> new_Student.midterm_Grade;
+	std::cin  >> new_Student.midterm_Grade;
 
 	std::cout << " Final Exam Grade: ";
-	std::cin >> new_Student.finalExam_Grade;
+	std::cin  >> new_Student.finalExam_Grade;
 	std::cout << "\n";
 }
-void edit_Student()
+void edit_Student(student_Info &new_Student)
 {
+	std::cout << "\nAdding Student\n";
 
+	std::cout << " Student Number: ";
+	std::cin  >> new_Student.student_Num;
+
+	std::cout << " Lab Grade: ";
+	std::cin  >> new_Student.lab_Grade;
+
+	std::cout << " Quiz Grade: ";
+	std::cin  >> new_Student.quiz_Grade;
+
+	std::cout << " Midterm Grade: ";
+	std::cin  >> new_Student.midterm_Grade;
+
+	std::cout << " Final Exam Grade: ";
+	std::cin  >> new_Student.finalExam_Grade;
+	std::cout << "\n";
 }
 void print_Menu()
 {
@@ -37,5 +53,6 @@ void print_Menu()
 }
 void print_Grades()
 {
-
+	std::cout <<  "  #		Student		Lab		Quiz	Midterm		Final Exam		Final Grade"
+	std::cout <<  "  1"
 }

@@ -6,16 +6,8 @@
 int number_of_student = 0;
 int main()
 {
+    struct student_Info new_Students[100];
     uint8_t command; //var used to track the key press and decide what function to run
-    struct student_Info {
-        char    student_Num[9]; //
-        float   lab_Grade;
-        float   quiz_Grade;
-        float   midterm_Grade;
-        float   finalExam_Grade;
-    };
-
-    struct student_Info* ptr_student_Info[CLASS_SIZE];
 
     while (1)
     {
@@ -25,7 +17,8 @@ int main()
 
         if(command == 'a' || command == 'A') //add student
         {
-            add_Student(number_of_student);
+            add_Student( new_Students[number_of_student]);
+            number_of_student++;
         }
         else if(command == 'e' || command == 'E') // edit student
         {

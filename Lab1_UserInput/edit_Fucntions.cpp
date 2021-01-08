@@ -1,10 +1,24 @@
-#include "main.h"
 #include <iostream>
+#include "main.h"
 
-void add_Student(float number_of_student)
+void add_Student(student_Info &new_Student)
 {
+	std::cout << "\nAdding Student\n";
 
+	std::cout << " Student Number: ";
+	std::cin >> new_Student.student_Num;
 
+	std::cout << " Lab Grade: ";
+	std::cin >> new_Student.lab_Grade;
+
+	std::cout << " Quiz Grade: ";
+	std::cin >> new_Student.quiz_Grade;
+
+	std::cout << " Midterm Grade: ";
+	std::cin >> new_Student.midterm_Grade;
+
+	std::cout << " Final Exam Grade: ";
+	std::cin >> new_Student.finalExam_Grade;
 }
 void edit_Student()
 {

@@ -4,10 +4,19 @@
 
 #define CLASS_SIZE 100 //size of the class used to generate the struct of students
 
-void add_Student(float number_of_student);
+struct student_Info {
+    char    student_Num[9]; //
+    float   lab_Grade;
+    float   quiz_Grade;
+    float   midterm_Grade;
+    float   finalExam_Grade;
+};
+
+void add_Student(student_Info &new_Student);
 void edit_Student();
 void print_Menu();
 void print_Grades();
+
 
 #endif // !MAIN_H
 

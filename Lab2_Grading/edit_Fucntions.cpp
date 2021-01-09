@@ -56,14 +56,14 @@ void print_Menu()
 
 void print_Grades(student_Info &new_Student, int current_student)
 {
-	std::cout << " #	Student		Lab	Quiz	Midterm		Final Exam	Final Grade\n";
+	std::cout << " # Student\tLab\tQuiz\tMidterm\t\tFinal Exam\tFinal Grade\n";
 	std::cout << " " << current_student;
-	std::cout << "	"<<  new_Student.student_Num;
-	std::cout << "	" << new_Student.lab_Grade;
-	std::cout << "	" << new_Student.quiz_Grade;
-	std::cout << "	" << new_Student.midterm_Grade;
-	std::cout << "		" << new_Student.finalExam_Grade;
-	std::cout << "		" << final_grade(new_Student) << "\n\n";
+	std::cout << " "<<  new_Student.student_Num;
+	std::cout << "\t" << new_Student.lab_Grade;
+	std::cout << "\t" << new_Student.quiz_Grade;
+	std::cout << "\t" << new_Student.midterm_Grade;
+	std::cout << "\t\t" << new_Student.finalExam_Grade;
+	std::cout << "\t\t" << final_grade(new_Student) << "\n\n";
 }//void print_Grades(student_Info &new_Student, uint8_t current_student)
 
 float final_grade(student_Info& new_Student)

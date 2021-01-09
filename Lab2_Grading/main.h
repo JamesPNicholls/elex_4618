@@ -12,7 +12,8 @@
 
 // need a student class
 struct student_Info {
-    std::string     student_Num[9];
+    char            student_Num[9];
+    //std::string     student_Num;
     float           lab_Grade; 
     float           quiz_Grade;
     float           midterm_Grade;

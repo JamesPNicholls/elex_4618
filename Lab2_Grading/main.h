@@ -12,20 +12,21 @@
 
 // need a student class
 struct student_Info {
-    char            student_Num[9];
-    //std::string     student_Num;
+    std::string     student_Num;
     float           lab_Grade; 
     float           quiz_Grade;
     float           midterm_Grade;
     float           finalExam_Grade;
 };
 
+float final_grade(student_Info& new_Student);
+bool is_StudentNum_Valid(std::string student_Num);
 void add_Student(student_Info &new_Student);
 void edit_Student(student_Info &new_Student);
 //void delete_student();
 void print_Grades(student_Info &new_Student, int current_student);
 void print_Menu();
-float final_grade(student_Info& new_Student);
+
 
 //void load_Class()
 //void save_Class()

@@ -2,11 +2,12 @@
 //
 
 #include <iostream>
+#include <string.h>
 #include "main.h"
 
 /*
 * Things to add:
-*   fix the spacing with /t thanks aman
+*   (DONE)fix the spacing with /t thanks aman
 *   (DONE) string instead of char array                                            
 *   add size checking and start char are A01/A00 for student_number
 *   add bounds for all grades need to be between 0.0 and 100.0
@@ -25,7 +26,7 @@ int main()
     struct student_Info new_Students[100];
     uint8_t command; //var used to track the key press and decide what function to run
 
-    while (1)
+    while(1)
     {
         print_Menu(); //Prints menu showing the commands
         std::cout << "Choose commands: ";

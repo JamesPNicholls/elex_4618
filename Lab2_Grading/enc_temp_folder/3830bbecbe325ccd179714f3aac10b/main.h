@@ -20,7 +20,6 @@ struct student_Info {
 };
 
 float final_grade(student_Info& new_Student);
-void verify_Grade(student_Info& new_Student);
 bool is_StudentNum_Valid(std::string student_Num);
 void add_Student(student_Info &new_Student);
 void edit_Student(student_Info &new_Student);

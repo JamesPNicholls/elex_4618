@@ -31,7 +31,6 @@ int main()
         print_Menu(); //Prints menu showing the commands
         std::cout << "Choose commands: ";
         std::cin >> command;//waits for input command
-
         if (command == 'a' || command == 'A') //add student
         {
             add_Student(new_Students[number_of_student]);

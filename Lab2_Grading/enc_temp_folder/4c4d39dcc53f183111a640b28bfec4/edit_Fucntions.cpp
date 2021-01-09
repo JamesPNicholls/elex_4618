@@ -124,7 +124,3 @@ bool is_StudentNum_Valid(std::string student_Num)
 
 }//bool is_StudentNum_Valid(std::string student_Num)
 
-void verify_Grade(student_Info& new_Student);
-{
-
-}

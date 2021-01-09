@@ -4,7 +4,16 @@
 #include <iostream>
 #include "main.h"
 
-int number_of_student = 0;
+/*
+* Things to add:
+*   fix the spacing with /t thanks aman
+*   string instead of char array
+*   
+* 
+*/
+
+
+int number_of_student = 0; //replace with the size function
 int main()
 {
     struct student_Info new_Students[100];

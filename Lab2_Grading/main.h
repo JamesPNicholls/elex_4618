@@ -10,9 +10,13 @@
 #define MIDTERM_COEFF   2
 #define WEIGHT_DIVISOR  10
 
+// need a student class
 struct student_Info {
-    char    student_Num[9]; //
-    float   lab_Grade;
+    char    student_Num[9]; // string instead of char
+                            //add size checking and start char are A01/A00
+    
+    
+    float   lab_Grade; //all grades need to be between 0.0 and 100.0
     float   quiz_Grade;
     float   midterm_Grade;
     float   finalExam_Grade;
@@ -20,10 +24,13 @@ struct student_Info {
 
 void add_Student(student_Info &new_Student);
 void edit_Student(student_Info &new_Student);
+//void delete_student();
 void print_Grades(student_Info &new_Student, int current_student);
 void print_Menu();
 float final_grade(student_Info& new_Student);
 
+//void load_Class()
+//void save_Class()
 #endif // !MAIN_H
 
 

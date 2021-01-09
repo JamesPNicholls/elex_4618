@@ -12,14 +12,11 @@
 
 // need a student class
 struct student_Info {
-    char    student_Num[9]; // string instead of char
-                            //add size checking and start char are A01/A00
-    
-    
-    float   lab_Grade; //all grades need to be between 0.0 and 100.0
-    float   quiz_Grade;
-    float   midterm_Grade;
-    float   finalExam_Grade;
+    std::string     student_Num[9];
+    float           lab_Grade; 
+    float           quiz_Grade;
+    float           midterm_Grade;
+    float           finalExam_Grade;
 };
 
 void add_Student(student_Info &new_Student);

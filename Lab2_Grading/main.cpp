@@ -7,9 +7,15 @@
 /*
 * Things to add:
 *   fix the spacing with /t thanks aman
-*   string instead of char array
-*   
+*   (DONE) string instead of char array                                            
+*   add size checking and start char are A01/A00 for student_number
+*   add bounds for all grades need to be between 0.0 and 100.0
+*   replace number_of_student with the size function
 * 
+*   add delete_student() fnc
+*   add load_lass() fnc
+*   add save_Class() fnc
+*       implement load/save/delete with text files
 */
 
 

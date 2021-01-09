@@ -1,13 +1,17 @@
 #include <iostream>
+#include <iomanip>
 #include <string.h>
 #include "main.h"
 
 void add_Student(student_Info &new_Student)
 {
+	float current_Grade_Type;
+	
 	std::cout << "\nAdding Student\n";
 
 	std::cout << " Student Number: ";	
 	std::cin >> new_Student.student_Num;
+
 	//passes in the new student number and loops until a valid student number is submitted
 	while (!is_StudentNum_Valid(new_Student.student_Num))
 	{
@@ -18,9 +22,13 @@ void add_Student(student_Info &new_Student)
 	}
 
 	std::cout << " Lab Grade: ";
-	std::cin  >> new_Student.lab_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+	std::cin >> current_Grade_Type;
+	while (!verify_Grade(current_Grade_Type))
+	{
+		std::cout << "\tInvalid Grade Please Try again: ";
+		std::cin  >> current_Grade_Type;
+	}
+	new_Student.lab_Grade = current_Grade_Type;
 
 	std::cout << " Quiz Grade: ";
 	std::cin  >> new_Student.quiz_Grade;
@@ -83,14 +91,17 @@ void print_Menu()
 
 void print_Grades(student_Info &new_Student, int current_student)
 {
+	//Set cout to Fixed mode
+	std::cout << std::fixed;
+
 	std::cout << " # Student\tLab\tQuiz\tMidterm\t\tFinal Exam\tFinal Grade\n";
 	std::cout << " " << current_student;
-	std::cout << " "<<  new_Student.student_Num;
-	std::cout << "\t" << new_Student.lab_Grade;
-	std::cout << "\t" << new_Student.quiz_Grade;
-	std::cout << "\t" << new_Student.midterm_Grade;
-	std::cout << "\t\t" << new_Student.finalExam_Grade;
-	std::cout << "\t\t" << final_grade(new_Student) << "\n\n";
+	std::cout << " " <<  new_Student.student_Num;
+	std::cout << "\t" << std::setprecision(1) << new_Student.lab_Grade;
+	std::cout << "\t" << std::setprecision(1) << new_Student.quiz_Grade;
+	std::cout << "\t" << std::setprecision(1) << new_Student.midterm_Grade;
+	std::cout << "\t\t" << std::setprecision(1) << new_Student.finalExam_Grade;
+	std::cout << "\t\t" << std::setprecision(1) << final_grade(new_Student) << "\n\n";
 }//void print_Grades(student_Info &new_Student, uint8_t current_student)
 
 float final_grade(student_Info& new_Student)
@@ -124,3 +135,23 @@ bool is_StudentNum_Valid(std::string student_Num)
 
 }//bool is_StudentNum_Valid(std::string student_Num)
 
+bool verify_Grade(float current_Grade_Value)
+{
+	//clear the error and buffer if a bad character was inputted 
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+		return false;
+	}
+
+	//Checks to see if the grade is in bounds
+	if (current_Grade_Value > 100.0 || current_Grade_Value < 0.0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}

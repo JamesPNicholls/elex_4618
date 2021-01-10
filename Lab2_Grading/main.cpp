@@ -31,6 +31,13 @@ int main()
         print_Menu(); //Prints menu showing the commands
         std::cout << "Choose commands: ";
         std::cin >> command;//waits for input command
+
+        if (std::cin.fail())//checks for weird stuff on the cin
+        {
+            std::cin.clear();
+            std::cin.ignore(100, '\n');
+        }
+
         if (command == 'a' || command == 'A') //add student
         {
             add_Student(new_Students[number_of_student]);
@@ -66,5 +73,6 @@ int main()
         {
             std::cout << "Not a recognized command\n";
         }
-    }
+
+    }//while(1)
 }

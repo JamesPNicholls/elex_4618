@@ -30,22 +30,36 @@ void add_Student(student_Info &new_Student)
 	}
 	new_Student.lab_Grade = current_Grade_Type;//sets the input to the grade in the struct
 
-
 	std::cout << " Quiz Grade: ";
-	std::cin  >> new_Student.quiz_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+	std::cin >> current_Grade_Type;
+	while (!verify_Grade(current_Grade_Type))
+	{
+		std::cout << "\tInvalid Grade Please Try again: ";
+		std::cin >> current_Grade_Type;
+	}
+	new_Student.quiz_Grade = current_Grade_Type;
+
 
 	std::cout << " Midterm Grade: ";
-	std::cin  >> new_Student.midterm_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+	std::cin >> current_Grade_Type;
+	while (!verify_Grade(current_Grade_Type))
+	{
+		std::cout << "\tInvalid Grade Please Try again: ";
+		std::cin >> current_Grade_Type;
+	}
+	new_Student.midterm_Grade = current_Grade_Type;
+
 
 	std::cout << " Final Exam Grade: ";
-	std::cin  >> new_Student.finalExam_Grade;
+	std::cin >> current_Grade_Type;
+	while (!verify_Grade(current_Grade_Type))
+	{
+		std::cout << "\tInvalid Grade Please Try again: ";
+		std::cin >> current_Grade_Type;
+	}
+	new_Student.finalExam_Grade = current_Grade_Type;
 	std::cout << "\n";
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 }//void add_Student(student_Info &new_Student)
 
 void edit_Student(student_Info &new_Student)
@@ -54,29 +68,24 @@ void edit_Student(student_Info &new_Student)
 
 	std::cout << " Student Number: ";
 	std::cin  >> new_Student.student_Num;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 
 	std::cout << " Lab Grade: ";
 	std::cin  >> new_Student.lab_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 
 	std::cout << " Quiz Grade: ";
 	std::cin  >> new_Student.quiz_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 
 	std::cout << " Midterm Grade: ";
 	std::cin  >> new_Student.midterm_Grade;
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 
 	std::cout << " Final Exam Grade: ";
 	std::cin  >> new_Student.finalExam_Grade;
 	std::cout << "\n";
-	std::cin.clear();
-	std::cin.ignore(100, '\n');
+
 }//void edit_Student(student_Info &new_Student)
 
 void print_Menu()
@@ -138,21 +147,31 @@ bool is_StudentNum_Valid(std::string student_Num)
 
 bool verify_Grade(float current_Grade_Value)
 {
-	//clear the error and buffer if a bad character was inputted 
+	bool temp = false;
+	//clear the error flag and discard the bad input if a bad character was detected
 	if (std::cin.fail())
 	{
 		std::cin.clear();
 		std::cin.ignore(100, '\n');
-		return false;
+		temp = false;
 	}
 
 	//Checks to see if the grade is in bounds
 	if (current_Grade_Value > 100.0 || current_Grade_Value < 0.0)
 	{
-		return false;
+		temp = false;
 	}
 	else
 	{
-		return true;
+		temp = true;
 	}
+
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+		temp = false;
+	}
+
+	return temp;
 }

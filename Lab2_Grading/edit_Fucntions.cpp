@@ -1,11 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include <string.h>
+#include <regex>
 #include "main.h"
 
 void add_Student(student_Info &new_Student)
 {
-	float current_Grade_Type;
+	std::string current_Grade_Type; //decided to make this a string because it made all of the error checking a lot easier 
 	
 	std::cout << "\nAdding Student\n";
 
@@ -23,21 +24,21 @@ void add_Student(student_Info &new_Student)
 
 	std::cout << " Lab Grade: ";
 	std::cin >> current_Grade_Type;
-	while (!verify_Grade(current_Grade_Type))//CHecks if the grade is within bounds and if cin encountered an error
+	while (!verify_Grade(current_Grade_Type))// Loops until a valid grade is entered
 	{
 		std::cout << "\tInvalid Grade Please Try again: ";
 		std::cin  >> current_Grade_Type;
 	}
-	new_Student.lab_Grade = current_Grade_Type;//sets the input to the grade in the struct
+	new_Student.lab_Grade = std::stof(current_Grade_Type);//sets the input to the grade in the struct
 
 	std::cout << " Quiz Grade: ";
-	std::cin >> current_Grade_Type;
+	std::cin >> current_Grade_Type;	
 	while (!verify_Grade(current_Grade_Type))
 	{
 		std::cout << "\tInvalid Grade Please Try again: ";
 		std::cin >> current_Grade_Type;
 	}
-	new_Student.quiz_Grade = current_Grade_Type;
+	new_Student.quiz_Grade = std::stof(current_Grade_Type);
 
 
 	std::cout << " Midterm Grade: ";
@@ -47,7 +48,7 @@ void add_Student(student_Info &new_Student)
 		std::cout << "\tInvalid Grade Please Try again: ";
 		std::cin >> current_Grade_Type;
 	}
-	new_Student.midterm_Grade = current_Grade_Type;
+	new_Student.midterm_Grade = std::stof(current_Grade_Type);
 
 
 	std::cout << " Final Exam Grade: ";
@@ -57,7 +58,7 @@ void add_Student(student_Info &new_Student)
 		std::cout << "\tInvalid Grade Please Try again: ";
 		std::cin >> current_Grade_Type;
 	}
-	new_Student.finalExam_Grade = current_Grade_Type;
+	new_Student.finalExam_Grade = std::stof(current_Grade_Type);
 	std::cout << "\n";
 
 }//void add_Student(student_Info &new_Student)
@@ -125,9 +126,12 @@ float final_grade(student_Info& new_Student)
 	return overall;
 }//float final_grade(student_Info& new_Student)
 
+
+//I could have used regex for this function as well but i already had it working with the string manips
 bool is_StudentNum_Valid(std::string student_Num)
 {
 	bool is_student_Num_Good = false; //assumes the number is bad
+								
 	if (student_Num.size() != 9)
 	{
 		return is_student_Num_Good;
@@ -145,33 +149,29 @@ bool is_StudentNum_Valid(std::string student_Num)
 
 }//bool is_StudentNum_Valid(std::string student_Num)
 
-bool verify_Grade(float current_Grade_Value)
-{
-	bool temp = false;
-	//clear the error flag and discard the bad input if a bad character was detected
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore(100, '\n');
-		temp = false;
-	}
+bool verify_Grade(std::string current_Grade_Value)
+{	
+	bool grade_is_valid = false;
 
-	//Checks to see if the grade is in bounds
-	if (current_Grade_Value > 100.0 || current_Grade_Value < 0.0)
+	std::string regex_Grade = "[0-1]*[0-9]*[0-9][.]*[0-9]*"; //there is probably a more concise way to write this
+	float grade_As_Float = std::stof(current_Grade_Value);//converts the sting to a float for making sure the number is in bounds
+
+	if (std::regex_match(current_Grade_Value, std::regex(regex_Grade)))// Gate to reject all invalid characters
 	{
-		temp = false;
+
+		if (grade_As_Float > 100.0 || grade_As_Float < 0.0)//Checks to see if the grade is in bounds
+		{
+			grade_is_valid = false;
+		}
+		else
+		{
+			grade_is_valid = true; // only returns true if the input has no invalid characters and is between 0 and 100
+		}
 	}
 	else
 	{
-		temp = true;
+		grade_is_valid = false;
 	}
 
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore(100, '\n');
-		temp = false;
-	}
-
-	return temp;
+	return grade_is_valid;
 }

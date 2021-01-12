@@ -3,20 +3,28 @@
 
 #include <iostream>
 #include <string.h>
+#include <fstream>
+#include <regex>
 #include "main.h"
 
 /*
 * Things to add:
-*   (DONE) fix the spacing with /t thanks aman
+*   (DONE) fix the spacing with /t, thanks aman
 *   (DONE) string instead of char array                                            
 *   (DONE) add size checking and start char are A01/A00 for student_number
 *   add bounds for all grades need to be between 0.0 and 100.0
 *   replace number_of_student with the size function
+*   Move the functions and structs into a class
 * 
 *   add delete_student() fnc
-*   add load_lass() fnc
+*       delete a student in a class
+*   add load_Class() fnc
+*       load grades from a class
+*       replace print grades?
 *   add save_Class() fnc
-*       implement load/save/delete with text files
+*       store the grades of a class into text files7
+* 
+*   implement load/save/delete with text files
 */
 
 
@@ -25,18 +33,13 @@ int main()
 {
     struct student_Info new_Students[100];
     uint8_t command; //var used to track the key press and decide what function to run
+ 
 
     while(1)
     {
         print_Menu(); //Prints menu showing the commands
         std::cout << "Choose commands: ";
         std::cin >> command;//waits for input command
-
-        if (std::cin.fail())//checks for weird stuff on the cin
-        {
-            std::cin.clear();
-            std::cin.ignore(100, '\n');
-        }
 
         if (command == 'a' || command == 'A') //add student
         {

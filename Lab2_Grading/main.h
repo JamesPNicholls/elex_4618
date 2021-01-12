@@ -28,7 +28,7 @@ void print_Menu();
 
 float final_grade(student_Info& new_Student);
 
-bool verify_Grade(float current_Grade_Value);
+bool verify_Grade(std::string current_Grade_Value);
 bool is_StudentNum_Valid(std::string student_Num);
 
 //void delete_student();

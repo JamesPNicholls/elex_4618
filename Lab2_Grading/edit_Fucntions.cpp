@@ -11,27 +11,28 @@ void add_Student(student_Info &new_Student)
 	
 	cout << "\nAdding Student\n";
 
-	cout << " Student Number: ";	
+	//-------------Student Number-------------------
+	cout << " Student Number: ";
 	cin >> new_Student.student_Num;
-
-	//passes in the new student number and loops until a valid student number is submitted
 	while (!is_StudentNum_Valid(new_Student.student_Num))
 	{
 		cout << "\tInvalid Student Number Please Try again: ";
 		cin >> new_Student.student_Num;
 	}
 
+	//----------Lab Grade ---------------------------
 	cout << " Lab Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))// Loops until a valid grade is entered
 	{
 		cout << "\tInvalid Grade Please Try again: ";
-		cin  >> current_Grade_Type;
+		cin >> current_Grade_Type;
 	}
 	new_Student.lab_Grade = stof(current_Grade_Type);//sets the input to the grade in the struct
 
+	//----------Quiz Grade ---------------------------
 	cout << " Quiz Grade: ";
-	cin >> current_Grade_Type;	
+	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -39,7 +40,7 @@ void add_Student(student_Info &new_Student)
 	}
 	new_Student.quiz_Grade = stof(current_Grade_Type);
 
-
+	//----------Midterm Grade ---------------------------
 	cout << " Midterm Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))
@@ -49,7 +50,7 @@ void add_Student(student_Info &new_Student)
 	}
 	new_Student.midterm_Grade = stof(current_Grade_Type);
 
-
+	//----------Final Exam Grade ---------------------------
 	cout << " Final Exam Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))
@@ -67,16 +68,16 @@ void edit_Student(student_Info &new_Student)
 	cout << "\nEditing Student\n";
 	string current_Grade_Type; //decided to make this a string because it made all of the error checking a lot easier 
 
+	//-------------Student Number-------------------
 	cout << " Student Number: ";
 	cin >> new_Student.student_Num;
-
-	//passes in the new student number and loops until a valid student number is submitted
 	while (!is_StudentNum_Valid(new_Student.student_Num))
 	{
 		cout << "\tInvalid Student Number Please Try again: ";
 		cin >> new_Student.student_Num;
 	}
-
+	
+	//----------Lab Grade ---------------------------
 	cout << " Lab Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))// Loops until a valid grade is entered
@@ -86,6 +87,7 @@ void edit_Student(student_Info &new_Student)
 	}
 	new_Student.lab_Grade = stof(current_Grade_Type);//sets the input to the grade in the struct
 
+	//----------Quiz Grade ---------------------------
 	cout << " Quiz Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))
@@ -95,7 +97,7 @@ void edit_Student(student_Info &new_Student)
 	}
 	new_Student.quiz_Grade = stof(current_Grade_Type);
 
-
+	//----------Midterm Grade ---------------------------
 	cout << " Midterm Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))
@@ -105,7 +107,7 @@ void edit_Student(student_Info &new_Student)
 	}
 	new_Student.midterm_Grade = stof(current_Grade_Type);
 
-
+	//----------Final Exam Grade ---------------------------
 	cout << " Final Exam Grade: ";
 	cin >> current_Grade_Type;
 	while (!verify_Grade(current_Grade_Type))

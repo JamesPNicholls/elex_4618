@@ -12,7 +12,7 @@
 *   (DONE) fix the spacing with /t, thanks aman
 *   (DONE) string instead of char array                                            
 *   (DONE) add size checking and start char are A01/A00 for student_number
-*   (DOne)add bounds for all grades need to be between 0.0 and 100.0
+*   (DOne) add bounds for all grades need to be between 0.0 and 100.0
 *   replace number_of_student with the size function
 *   Move the functions and structs into a class
 * 

@@ -10,6 +10,10 @@
 #define MIDTERM_COEFF   2
 #define WEIGHT_DIVISOR  10
 
+#define GRADE_MASK_REGEX        "[0-9]+[.]?[0-9]*"
+#define COMMAND_MASK_REGEX      "[a-zA-Z]"
+#define STUDENT_NUM_MASK_REGEX  "[aA][0][0-1][0-9]{6}" 
+
 // need a student class
 struct student_Info {
     std::string     student_Num;

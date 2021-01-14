@@ -26,12 +26,12 @@ class CStudent
 {
 public:
     void add_Student();
-    void edit_Student(student_Info& new_Student);
+    void edit_Student(int student_Index);
 
-    void print_Grades(student_Info& new_Student, int current_student);
+    void print_Grades();
     void print_Menu();
 
-    float final_grade(student_Info& new_Student);
+    float final_grade(uint8_t vector_Index);
 
     bool verify_Grade(std::string current_Grade_Value);
     bool is_StudentNum_Valid(std::string student_Num);

@@ -58,15 +58,12 @@ int main()
                 }
                 else
                 {
-                    new_Student_Class.edit_Student(new_Students[temp_student_num]);
+                    new_Student_Class.edit_Student(temp_student_num);
                 }
             }
             else if (regex_match(command, regex("[pP]")))// Print Grades
             {
-                for (int i = 0; i < number_of_student; i++)
-                {
-                    new_Student_Class.print_Grades(new_Students[i], i);//print each of the students stored in the 'new_student' array
-                }
+                new_Student_Class.print_Grades();//print each of the students stored in the 'new_student' 
                 cout << "\n";
             }
             else if (regex_match(command, regex("[qQ]"))) // Quit Application

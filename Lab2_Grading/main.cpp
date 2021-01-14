@@ -31,21 +31,20 @@ using namespace std;
 int number_of_student = 0; //replace with the size function
 int main()
 {
-    struct student_Info new_Students[100];
-    string command; //var used to track the key press and decide what function to run
- 
+    CStudent new_Student_Class;
+    string command; //var used to track the key press and decide what function to run 
 
     while(1)
     {
-        print_Menu(); //Prints menu showing the commands
+        new_Student_Class.print_Menu(); //Prints menu showing the commands
         cout << "Choose commands: ";
         cin >> command;//waits for input command
 
-        if (regex_match(command, regex(COMMAND_MASK_REGEX) ) )
+        if (regex_match(command, regex(COMMAND_MASK_REGEX) ) ) // rejects any unwanted characters for command prompt
         {
             if (regex_match(command, regex("[aA]"))) //add student
             {
-                add_Student(new_Students[number_of_student]);
+                new_Student_Class.add_Student();
                 number_of_student++;
             }
             else if (regex_match(command, regex("[eA]"))) // edit student
@@ -59,14 +58,14 @@ int main()
                 }
                 else
                 {
-                    edit_Student(new_Students[temp_student_num]);
+                    new_Student_Class.edit_Student(new_Students[temp_student_num]);
                 }
             }
             else if (regex_match(command, regex("[pP]")))// Print Grades
             {
                 for (int i = 0; i < number_of_student; i++)
                 {
-                    print_Grades(new_Students[i], i);//print each of the students stored in the 'new_student' array
+                    new_Student_Class.print_Grades(new_Students[i], i);//print each of the students stored in the 'new_student' array
                 }
                 cout << "\n";
             }

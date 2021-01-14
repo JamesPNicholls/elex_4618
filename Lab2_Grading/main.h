@@ -27,22 +27,27 @@ class CStudent
 public:
     void add_Student();
     void edit_Student(int student_Index);
+    void delete_student();
 
     void print_Grades();
     void print_Menu();
 
-    float final_grade(uint8_t vector_Index);
-
-    bool verify_Grade(std::string current_Grade_Value);
-    bool is_StudentNum_Valid(std::string student_Num);
-
 private:
     std::vector <student_Info> student_Vector;
+    float final_grade(uint8_t vector_Index);
+    bool verify_Grade(std::string current_Grade_Value);
+    bool is_StudentNum_Valid(std::string student_Num);
 };
 
-//void delete_student();
-//void load_Class()
-//void save_Class()
+class CCourse
+{
+private:
+
+public:
+    void load_Class();
+    void save_Class();
+};
+
 #endif // !MAIN_H
 
 

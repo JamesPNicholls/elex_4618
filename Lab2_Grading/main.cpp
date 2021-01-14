@@ -52,11 +52,11 @@ int main()
             else if (regex_match(command, regex("[eE]"))) // edit student
             {
                 int temp_student_num;
-                cout << "Student to Edit: ";
+                cout << " Student to Edit: ";
                 cin >> temp_student_num;
                 if (temp_student_num >= new_Course_Class.get_Size_of_Vector())//check to see if a valid student is selected
                 {
-                    cout << "Student does not exist\n\n";
+                    cout << " Student does not exist\n\n";
                 }
                 else
                 {
@@ -67,11 +67,12 @@ int main()
             else if (regex_match(command, regex("[dD]"))) // delete student
             {
                 int temp;
-                cout << "Student to delete: ";
+                cout << " Student to delete: ";
                 cin >> temp;
-                if (temp > new_Course_Class.get_Size_of_Vector() || temp < 0)
+
+                if (temp >= new_Course_Class.get_Size_of_Vector())
                 {
-                    cout << "Student does not exist\n\n";
+                    cout << " Student does not exist\n\n";
                 }
                 else
                 {

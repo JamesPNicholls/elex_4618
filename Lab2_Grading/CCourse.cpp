@@ -130,7 +130,10 @@ void CCourse::edit_Student(int student_Index)
 
 void CCourse::delete_student(int student_Index)
 {
+	cout << "\tSize of Student_CLass_vector: " <<  student_Class_Vector.size();
+	cout << "\n\n";
 	student_Class_Vector.erase(student_Class_Vector.begin() + student_Index);
+	
 }
 
 void CCourse::print_Menu()
@@ -164,19 +167,53 @@ void CCourse::print_Grades()
 
 }//void print_Grades(student_Info &new_Student, uint8_t current_student)
 
+// Like all great developers, Im not entirely sure how this works but it does
+// Shamelessly stolen from:  https://stackoverflow.com/questions/28492517/write-and-load-vector-of-structs-in-a-binary-file-c
+// For both load_Class() and save_Class()
 void CCourse::load_Class()
 {
-	//load the vector of type CStudent
-	//into 
+	string file_Name;
+	cout << "Class_Name: ####.txt\n";
+	cout << "> ";
+	cin >> file_Name;
+	file_Name = "./" + file_Name;
+	
+	ifstream in_Stream(file_Name, ios::out );
+	if (in_Stream.is_open())
+	{
+		typename vector<CStudent>::size_type size = 0;
+		in_Stream.read((char*)&size, sizeof(size));
+
+		student_Class_Vector.resize(size);
+		in_Stream.read((char*)&student_Class_Vector[0], student_Class_Vector.size() * sizeof(CStudent));
+		in_Stream.close();
+	}
+	else
+	{
+		cout << "  File not found...\n\n";
+	}
 }
 
 void CCourse::save_Class()
-{
+{	
 	string file_Name;
-	
 	cout << "Class Name: ####.txt\n";
 	cout << "> ";
 	cin >> file_Name;
+	file_Name = "./" + file_Name;
+	ofstream out_Stream(file_Name, std::ios::out );
+
+	if (out_Stream.is_open())
+	{
+		typename vector<CStudent>::size_type size = student_Class_Vector.size();
+		out_Stream.write((char*)&size, sizeof(size));
+		out_Stream.write((char*)&student_Class_Vector[0], student_Class_Vector.size() * sizeof(CStudent));
+		out_Stream.close();
+	}
+	else
+	{
+		cout << "  Error occured when creating file...\n";
+	}
 }
 
 //----Suplimentary fncs-----

@@ -2,8 +2,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define CLASS_SIZE 100  // size of the class used to generate the struct of students
-
 #define LAB_COEFF       4
 #define FINAL_COEFF     3
 #define QUIZ_COEFF      1
@@ -14,39 +12,38 @@
 #define COMMAND_MASK_REGEX      "[a-zA-Z]"
 #define STUDENT_NUM_MASK_REGEX  "[aA][0][0-1][0-9]{6}" 
 
-struct student_Info {
+class CStudent
+{
+public:
     std::string     student_Num;
     float           lab_Grade;
     float           quiz_Grade;
     float           midterm_Grade;
     float           finalExam_Grade;
 };
-	
-class CStudent
+
+class CCourse
 {
 public:
     void add_Student();
     void edit_Student(int student_Index);
-    void delete_student();
+    void delete_student(int student_Index);
 
     void print_Grades();
     void print_Menu();
 
+    void load_Class();
+    void save_Class();
+
+    int get_Size_of_Vector();
+
 private:
-    std::vector <student_Info> student_Vector;
+    std::vector <CStudent> student_Class_Vector;
     float final_grade(uint8_t vector_Index);
-    bool verify_Grade(std::string current_Grade_Value);
+    bool is_Grade_Valid(std::string current_Grade_Value);
     bool is_StudentNum_Valid(std::string student_Num);
 };
 
-class CCourse
-{
-private:
-
-public:
-    void load_Class();
-    void save_Class();
-};
 
 #endif // !MAIN_H
 

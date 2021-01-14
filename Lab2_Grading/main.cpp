@@ -13,11 +13,10 @@
 *   (DONE) string instead of char array                                            
 *   (DONE) add size checking and start char are A01/A00 for student_number
 *   (DOne) add bounds for all grades need to be between 0.0 and 100.0
-*   replace number_of_student with the size function
-*   Move the functions and structs into a class
-* 
-*   add delete_student() fnc
-*       delete a student in a class
+*   (DOne) replace number_of_student with the size function
+*   (Done) Move the functions and structs into a class
+*   (Done) add delete_student() fnc
+*        
 *   add load_Class() fnc
 *       load grades from a class
 *       replace print grades?
@@ -28,15 +27,16 @@
 */
 
 using namespace std;
-int number_of_student = 0; //replace with the size function
 int main()
 {
-    CStudent new_Student_Class;
+    CCourse new_Course_Class;
+    //Generated the first empty class
+
     string command; //var used to track the key press and decide what function to run 
 
     while(1)
     {
-        new_Student_Class.print_Menu(); //Prints menu showing the commands
+        new_Course_Class.print_Menu(); //Prints menu showing the commands
         cout << "Choose commands: ";
         cin >> command;//waits for input command
 
@@ -44,32 +44,61 @@ int main()
         {
             if (regex_match(command, regex("[aA]"))) //add student
             {
-                new_Student_Class.add_Student();
-                number_of_student++;
-            }
-            else if (regex_match(command, regex("[eA]"))) // edit student
+                new_Course_Class.add_Student();
+            }//add student
+
+
+            else if (regex_match(command, regex("[eE]"))) // edit student
             {
                 int temp_student_num;
                 cout << "Student to Edit: ";
                 cin >> temp_student_num;
-                if (temp_student_num >= number_of_student)//check to see if a valid student is selected
+                if (temp_student_num >= new_Course_Class.get_Size_of_Vector())//check to see if a valid student is selected
                 {
                     cout << "Student does not exist\n\n";
                 }
                 else
                 {
-                    new_Student_Class.edit_Student(temp_student_num);
+                    new_Course_Class.edit_Student(temp_student_num);
                 }
-            }
+            }// edit student
+
+            else if (regex_match(command, regex("[dD]"))) // delete student
+            {
+                int temp;
+                cout << "Student to delete: ";
+                cin >> temp;
+                if (temp > new_Course_Class.get_Size_of_Vector() || temp < 0)
+                {
+                    cout << "Student does not exist\n\n";
+                }
+                else
+                {
+                    new_Course_Class.delete_student(temp);
+                }                
+            }//delete student
+
+
             else if (regex_match(command, regex("[pP]")))// Print Grades
             {
-                new_Student_Class.print_Grades();//print each of the students stored in the 'new_student' 
+                new_Course_Class.print_Grades();//print each of the students stored in the 'new_student' 
                 cout << "\n";
+            }// Print Grades
+
+            else if (regex_match(command, regex("[sS]")))// Save student vector
+            {
+                new_Course_Class.save_Class();
             }
+
+            else if (regex_match(command, regex("[lL]")))// Load Student Vector
+            {
+                new_Course_Class.load_Class();
+            }
+
             else if (regex_match(command, regex("[qQ]"))) // Quit Application
             {
                 return 0;
-            }
+            }//quit
         }        
         else
         {

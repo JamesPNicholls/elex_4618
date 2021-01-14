@@ -6,6 +6,9 @@
 #include <fstream>
 #include <regex>
 #include "main.h"
+#include "CStudent.h"
+#include "CCourse.h"
+
 
 /*
 * Things to add:
@@ -18,12 +21,10 @@
 *   (Done) add delete_student() fnc
 *        
 *   add load_Class() fnc
-*       load grades from a class
-*       replace print grades?
+*       store the vector stored in the file
 *   add save_Class() fnc
-*       store the grades of a class into text files7
+*       store the vector type CStudent
 * 
-*   implement load/save/delete with text files
 */
 
 using namespace std;

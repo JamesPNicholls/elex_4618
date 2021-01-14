@@ -4,9 +4,12 @@
 #include <string.h>
 #include <regex>
 #include "main.h"
+#include "CStudent.h"
+#include "CCourse.h"
+
+
 using namespace std;
 
-//------------CCourse Member Functions---------------
 void CCourse::add_Student()
 {
 	CStudent student_Info_Class; //generates the new class of type CStudent

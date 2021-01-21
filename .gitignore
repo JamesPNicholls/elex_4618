@@ -11,6 +11,8 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+# Save files generated from lab2
+classFiles/
 
 # Build results
 [Dd]ebug/

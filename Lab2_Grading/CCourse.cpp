@@ -173,9 +173,6 @@ void CCourse::print_Grades()
 
 }//void print_Grades(student_Info &new_Student, uint8_t current_student)
 
-// Like all great developers, Im not entirely sure how this works but it does
-// Shamelessly stolen from:  https://stackoverflow.com/questions/28492517/write-and-load-vector-of-structs-in-a-binary-file-c
-// For both load_Class() and save_Class()
 void CCourse::load_Class()
 {
 	string file_Name;

@@ -7,7 +7,6 @@
 #include "CStudent.h"
 #include "CCourse.h"
 
-
 using namespace std;
 
 void CCourse::add_Student()
@@ -19,8 +18,9 @@ void CCourse::add_Student()
 
 	//-------------Student Number-------------------
 	cout << " Student Number: ";
-	cin >> student_Info_Class.student_Num;
-	while (!is_StudentNum_Valid(student_Info_Class.student_Num))
+	cin	 >> student_Info_Class.student_Num;
+
+	while ( is_StudentNum_Valid(student_Info_Class.student_Num) == false)
 	{
 		cout << "\tInvalid Student Number Please Try again: ";
 		cin >> student_Info_Class.student_Num;
@@ -28,7 +28,8 @@ void CCourse::add_Student()
 
 	//----------Lab Grade ---------------------------
 	cout << " Lab Grade: ";
-	cin >> current_Grade_Type;
+	cin  >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))// Loops until a valid grade is entered
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -39,6 +40,7 @@ void CCourse::add_Student()
 	//----------Quiz Grade ---------------------------
 	cout << " Quiz Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -49,6 +51,7 @@ void CCourse::add_Student()
 	//----------Midterm Grade ---------------------------
 	cout << " Midterm Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -59,6 +62,7 @@ void CCourse::add_Student()
 	//----------Final Exam Grade ---------------------------
 	cout << " Final Exam Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -67,7 +71,7 @@ void CCourse::add_Student()
 	student_Info_Class.finalExam_Grade = stof(current_Grade_Type);
 	cout << "\n";
 
-	student_Class_Vector.push_back(student_Info_Class);
+	student_Class_Vector.push_back(student_Info_Class); //stores the temp CClass in the vector
 }//void add_Student(student_Info &new_Student)
 
 void CCourse::edit_Student(int student_Index)
@@ -79,6 +83,7 @@ void CCourse::edit_Student(int student_Index)
 	//-------------Student Number-------------------
 	cout << " Student Number: ";
 	cin >> student_Class_Vector.at(student_Index).student_Num;
+
 	while (!is_StudentNum_Valid(student_Class_Vector.at(student_Index).student_Num))
 	{
 		cout << "\tInvalid Student Number Please Try again: ";
@@ -88,6 +93,7 @@ void CCourse::edit_Student(int student_Index)
 	//----------Lab Grade ---------------------------
 	cout << " Lab Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))// Loops until a valid grade is entered
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -98,6 +104,7 @@ void CCourse::edit_Student(int student_Index)
 	//----------Quiz Grade ---------------------------
 	cout << " Quiz Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -108,6 +115,7 @@ void CCourse::edit_Student(int student_Index)
 	//----------Midterm Grade ---------------------------
 	cout << " Midterm Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -118,6 +126,7 @@ void CCourse::edit_Student(int student_Index)
 	//----------Final Exam Grade ---------------------------
 	cout << " Final Exam Grade: ";
 	cin >> current_Grade_Type;
+
 	while (!is_Grade_Valid(current_Grade_Type))
 	{
 		cout << "\tInvalid Grade Please Try again: ";
@@ -130,10 +139,7 @@ void CCourse::edit_Student(int student_Index)
 
 void CCourse::delete_student(int student_Index)
 {
-	cout << "\tSize of Student_CLass_vector: " <<  student_Class_Vector.size();
-	cout << "\n\n";
-	student_Class_Vector.erase(student_Class_Vector.begin() + student_Index);
-	
+	student_Class_Vector.erase(student_Class_Vector.begin() + student_Index);	
 }
 
 void CCourse::print_Menu()
@@ -173,20 +179,43 @@ void CCourse::print_Grades()
 void CCourse::load_Class()
 {
 	string file_Name;
-	cout << "Class_Name: ####.txt\n";
+	cout << "Class_Name: ####\n";
 	cout << "> ";
 	cin >> file_Name;
 	file_Name = "./" + file_Name;
 	
+
+
 	ifstream in_Stream(file_Name, ios::out );
+	
 	if (in_Stream.is_open())
 	{
-		typename vector<CStudent>::size_type size = 0;
-		in_Stream.read((char*)&size, sizeof(size));
+		string class_Size;
+		string temp;
+		CStudent temp_Class;
+		
+		student_Class_Vector.clear();//out with the old in with the new
+		
+		getline(in_Stream, class_Size);
+		for (int i = 0; i < stof(class_Size); i++)
+		{
+			getline(in_Stream, temp);
+			temp_Class.student_Num = temp;
 
-		student_Class_Vector.resize(size);
-		in_Stream.read((char*)&student_Class_Vector[0], student_Class_Vector.size() * sizeof(CStudent));
-		in_Stream.close();
+			getline(in_Stream, temp);
+			temp_Class.finalExam_Grade = stof(temp);
+
+			getline(in_Stream, temp);
+			temp_Class.lab_Grade = stof(temp);
+
+			getline(in_Stream, temp);
+			temp_Class.midterm_Grade = stof(temp);
+
+			getline(in_Stream, temp);
+			temp_Class.quiz_Grade = stof(temp);
+			
+			student_Class_Vector.push_back(temp_Class);
+		} 
 	}
 	else
 	{
@@ -201,33 +230,37 @@ void CCourse::save_Class()
 	cout << "> ";
 	cin >> file_Name;
 	file_Name = "./" + file_Name;
-	ofstream out_Stream(file_Name, std::ios::out );
+	ofstream out_Stream(file_Name, std::ios::out);
 
-	if (out_Stream.is_open())
+	if( out_Stream.is_open())
 	{
-		typename vector<CStudent>::size_type size = student_Class_Vector.size();
-		out_Stream.write((char*)&size, sizeof(size));
-		out_Stream.write((char*)&student_Class_Vector[0], student_Class_Vector.size() * sizeof(CStudent));
-		out_Stream.close();
+		out_Stream << student_Class_Vector.size() << "\n"; //stores the for interation use in load_Class();
+		for (int i = 0; i < student_Class_Vector.size(); i++)
+		{			
+			out_Stream << student_Class_Vector.at(i).student_Num		<< "\n";
+			out_Stream << student_Class_Vector.at(i).finalExam_Grade	<< "\n";
+			out_Stream << student_Class_Vector.at(i).finalExam_Grade	<< "\n";
+			out_Stream << student_Class_Vector.at(i).midterm_Grade		<< "\n";
+			out_Stream << student_Class_Vector.at(i).quiz_Grade			<< "\n";
+		}
 	}
 	else
 	{
-		cout << "  Error occured when creating file...\n";
+		cout << "  File not found...\n\n";
 	}
-}
+}//void CCourse::save_Class()
 
-//----Suplimentary fncs-----
 int CCourse::get_Size_of_Vector()
 {
 	return student_Class_Vector.size();
-}
+}//int CCourse::get_Size_of_Vector()
 
 float CCourse::final_grade(uint8_t vector_Index)
 {
-	float quiz = student_Class_Vector[vector_Index].quiz_Grade;       //10%
-	float final_mark = student_Class_Vector[vector_Index].finalExam_Grade;  //30%
-	float lab = student_Class_Vector[vector_Index].lab_Grade;		 //40%
-	float midterm = student_Class_Vector[vector_Index].midterm_Grade;    //20%
+	float quiz			= student_Class_Vector[vector_Index].quiz_Grade;		//10%
+	float final_mark	= student_Class_Vector[vector_Index].finalExam_Grade;   //30%
+	float lab			= student_Class_Vector[vector_Index].lab_Grade;			//40%
+	float midterm		= student_Class_Vector[vector_Index].midterm_Grade;		//20%
 
 	float overall = (quiz * QUIZ_COEFF + final_mark * FINAL_COEFF + lab * LAB_COEFF + midterm * MIDTERM_COEFF) / WEIGHT_DIVISOR; //Takes the weighted average of the grades
 	return overall;

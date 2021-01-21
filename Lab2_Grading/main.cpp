@@ -9,7 +9,6 @@
 #include "CStudent.h"
 #include "CCourse.h"
 
-
 /*
 * Things to add:
 *   (DONE) fix the spacing with /t, thanks aman
@@ -20,20 +19,17 @@
 *   (Done) Move the functions and structs into a class
 *   (Done) add delete_student() fnc
 *        
-*   add load_Class() fnc
+*   (Done) add load_Class() fnc
 *       store the vector stored in the file
-*   add save_Class() fnc
-*       store the vector type CStudent
-* 
+*   (Done)add save_Class() fnc
+*       store the vector type CStudent 
 */
 
 using namespace std;
 int main()
 {
     CCourse new_Course_Class;
-    //Generated the first empty class
-
-    string command; //var used to track the key press and decide what function to run 
+    string command;
 
     while(1)
     {
@@ -43,18 +39,21 @@ int main()
 
         if (regex_match(command, regex(COMMAND_MASK_REGEX) ) ) // rejects any unwanted characters for command prompt
         {
-            if (regex_match(command, regex("[aA]"))) //add student
+            //----------------add student
+            if (regex_match(command, regex("[aA]"))) 
             {
                 new_Course_Class.add_Student();
-            }//add student
+            }//---------------add student
 
-
-            else if (regex_match(command, regex("[eE]"))) // edit student
+            //----------------edit student
+            else if (regex_match(command, regex("[eE]"))) 
             {
                 int temp_student_num;
+
                 cout << " Student to Edit: ";
                 cin >> temp_student_num;
-                if (temp_student_num >= new_Course_Class.get_Size_of_Vector())//check to see if a valid student is selected
+
+                if (temp_student_num >= new_Course_Class.get_Size_of_Vector() || temp_student_num < 0)//check to see if a valid student is selected
                 {
                     cout << " Student does not exist\n\n";
                 }
@@ -62,15 +61,16 @@ int main()
                 {
                     new_Course_Class.edit_Student(temp_student_num);
                 }
-            }// edit student
+            }//----------------edit student
 
-            else if (regex_match(command, regex("[dD]"))) // delete student
+            //-----------------delete student
+            else if (regex_match(command, regex("[dD]"))) 
             {
                 int temp;
                 cout << " Student to delete: ";
                 cin >> temp;
 
-                if (temp >= new_Course_Class.get_Size_of_Vector())
+                if (temp >= new_Course_Class.get_Size_of_Vector() || temp < 0)
                 {
                     cout << " Student does not exist\n\n";
                 }
@@ -78,14 +78,15 @@ int main()
                 {
                     new_Course_Class.delete_student(temp);
                 }                
-            }//delete student
+            }//-----------------delete student
 
-
-            else if (regex_match(command, regex("[pP]")))// Print Grades
+            //------------------Print Grades            
+            else if (regex_match(command, regex("[pP]")))
             {
                 new_Course_Class.print_Grades();//print each of the students stored in the 'new_student' 
                 cout << "\n";
-            }// Print Grades
+            }//-----------------Print Grades
+
 
             else if (regex_match(command, regex("[sS]")))// Save student vector
             {

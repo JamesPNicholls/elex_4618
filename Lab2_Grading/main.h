@@ -12,8 +12,6 @@
 #define COMMAND_MASK_REGEX      "[a-zA-Z]"
 #define STUDENT_NUM_MASK_REGEX  "[aA][0][0-1][0-9]{6}" 
 
-
-
 #endif // !MAIN_H
 
 

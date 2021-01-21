@@ -182,9 +182,7 @@ void CCourse::load_Class()
 	cout << "Class_Name: ####\n";
 	cout << "> ";
 	cin >> file_Name;
-	file_Name = "./" + file_Name;
-	
-
+	file_Name = "./classFiles/" + file_Name; 
 
 	ifstream in_Stream(file_Name, ios::out );
 	
@@ -226,10 +224,10 @@ void CCourse::load_Class()
 void CCourse::save_Class()
 {	
 	string file_Name;
-	cout << "Class Name: ####.txt\n";
+	cout << "Class Name: ####\n";
 	cout << "> ";
 	cin >> file_Name;
-	file_Name = "./" + file_Name;
+	file_Name = "./classFiles/" + file_Name;
 	ofstream out_Stream(file_Name, std::ios::out);
 
 	if( out_Stream.is_open())

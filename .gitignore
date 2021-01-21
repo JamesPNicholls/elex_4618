@@ -11,7 +11,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-C:/Users/James/Documents/ClassDownloads/git_repo/elex_4618/Lab2_Grading/classFiles/
+classFiles/
 
 # Build results
 [Dd]ebug/

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef CCOURSE_H
-#define CCOURSE_H
 
 class CCourse
 {
@@ -23,6 +21,4 @@ private:
     bool is_Grade_Valid(std::string current_Grade_Value);
     bool is_StudentNum_Valid(std::string student_Num);
 };
-
-#endif // !CCOURSE_H
 

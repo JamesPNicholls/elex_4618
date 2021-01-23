@@ -1,6 +1,4 @@
 #pragma once
-#ifndef CSTUDENT_H
-#define CSTUDENT_H
 
 class CStudent
 {
@@ -12,6 +10,5 @@ public:
     float           finalExam_Grade;
 };
 
-#endif // !1
 
 

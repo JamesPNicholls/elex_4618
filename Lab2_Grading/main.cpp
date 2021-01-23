@@ -20,9 +20,9 @@
 *   (Done) add delete_student() fnc
 *        
 *   (Done) add load_Class() fnc
-*       store the vector stored in the file
-*   (Done)add save_Class() fnc
-*       store the vector type CStudent 
+*   (Done) store the vector stored in the file
+*   (Done) add save_Class() fnc
+*   (Done) store the vector type CStudent 
 */
 
 using namespace std;
@@ -107,6 +107,5 @@ int main()
         {
             cout << "\tNot a recognized command\n\n";
         }
-
     }//while(1)
 }

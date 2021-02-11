@@ -44,7 +44,7 @@ bool CControl::get_data (int type, int channel, int& result)
 
     // Send command_String
     _com.write(command_String.c_str(), command_String.length());
-
+    Sleep(1); //this is needed as at times it causes an exception throw in some of the get_data calls;
     string out_String = "";
     // start timeout count
     double start_time = getTickCount();
@@ -123,30 +123,21 @@ bool CControl::set_data(int type, int channel, int val)
     return true;
 }
 
-bool CControl::get_button()
+bool CControl::get_button(int channel)
 {
     int result;
-    int index = 0;
-    do
+    if (get_data(digital, channel, result))
     {
-        if (get_data(digital, push_Button2, result))
+        if (result == 0)
         {
-            if (result == 0)
+            while (result != 1)
             {
-                while (result != 1)
-                {
-                    get_data(digital, push_Button2, result);//interates when the button is unpressed
-                }
-                index++;
-                cout << "\nButton Test: " << index;
+                get_data(digital, channel, result);//interates when the button is unpressed
             }
+            return true;
         }
-        else
-        {
-            return false;
-        }
-    } while (waitKey(0) < 0);
-    return true;
+    }
+    return false;    
 }
 
 bool CControl::get_data_poll(int type, int channel)

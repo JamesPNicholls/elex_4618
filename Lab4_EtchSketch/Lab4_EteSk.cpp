@@ -19,10 +19,6 @@
 
 int main(int argc, char* argv[])
 {
-	cv::Size sketch_Size;
-	sketch_Size.height = CANVAS_HEIGHT;
-	sketch_Size.width = CANVAS_WIDTH;
-
-	CSketch sketch (sketch_Size, COM_PORT);		
+	CSketch sketch (cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
 	sketch.run();
 }

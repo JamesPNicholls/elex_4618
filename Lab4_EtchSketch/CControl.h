@@ -72,7 +72,7 @@ bool get_analog(int type, int channel);
  * 
  * @return 	true if data was written succesfully, false if otherwise
  */
-bool get_button();
+bool get_button(int channel);
 };
 
 
@@ -90,8 +90,10 @@ enum channel_ {
 	RGBLED_RED_PIN = 39,
 	RGBLED_GRN_PIN = 38,
 	RGBLED_BLU_PIN = 37,
-	//no so much a port but pulse width
-	//4 numbers in the arduino code
+	RGBLED_OFFSET  = 37,
+
+	RGB_ON = 1,
+	RGB_OFF = 0,
 
 	analog_Convesion_Factor = 1024,
 	percentile_Factor = 100,

@@ -15,8 +15,8 @@
 classFiles/
 
 #doxygen generated files
-elex_4618/Lab3_ESC/docs/
-elex_4618/Lab4_EtchSketch/doxyL4/
+Lab3_ESC/docs/
+Lab4_EtchSketch/doxyL4/
 
 # Build results
 [Dd]ebug/

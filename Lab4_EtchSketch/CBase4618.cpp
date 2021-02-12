@@ -90,6 +90,8 @@ void CSketch::update()
 	_base.get_data(analog, joyStick_X, x);
 	_base.get_data(analog, joyStick_Y, y);
 
+	// In order to reach the corners of the screen the joy stick is mapped to a region that is larger than the space on _canvas
+	// It than checks to make sure that coordinates are within the drawing space and wont allow them to go off screen.
 	new_XY_Cords.x = ((float)x / analog_Convesion_Factor * CANVAS_W_DRAW) - DRAW_CANVAS_OFFSET;
 	new_XY_Cords.y = CANVAS_H_DRAW - ((float)y / analog_Convesion_Factor * CANVAS_H_DRAW) - DRAW_CANVAS_OFFSET;
 

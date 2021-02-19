@@ -2,15 +2,10 @@
 #include "stdafx.h"
 #include "CControl.h"
 
-#define CANVAS_WIDTH		800
+#define CANVAS_WIDTH		1000
 #define CANVAS_HEIGHT		800
-#define CANVAS_W_DRAW		1100
-#define CANVAS_H_DRAW		1100
-
-#define DRAW_CANVAS_OFFSET	150
 
 #define COM_PORT		3
-#define CIRCLE_RADIUS	10
 
 /**
  *

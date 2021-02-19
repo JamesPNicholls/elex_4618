@@ -7,13 +7,25 @@
 
 #define BALL_RADIUS 15
 
+#define PADDLE_LEFT_X 100
+#define PADDLE_LEFT_Y CANVAS_HEIGHT/2
+
+#define PADDLE_RIGHT_X CANVAS_WIDTH - PADDLE_LEFT_X
+#define PADDKE_RIGHT_Y CANVAS_HEIGHT/2
+
+#define PADDLE_WIDTH	10
+#define PADDLE_HEIGHT	100
+
 #define LINE_CENTER CANVAS_WIDTH/2
 
 struct paddle_Params
 {	
-	cv::Point pl_Point = { 40,400 };
-	int width = 10;
-	int height = 100;
+	cv::Point pl_Point;
+	int width;
+	int height;
+
+	cv::Rect pl_rectangle =		{ pl_Point.x, pl_Point.y, width, height };
+	cv::Scalar paddle_Colour =	{ 255,255,255 };
 };
 
 struct ball_Params
@@ -29,22 +41,28 @@ struct ball_Params
 
 struct screen_Params
 {
+	int FPS;
+	int l_Score;
+	int r_Score;
 
+	cv::Point  player_L_Point;
+	cv::Point  player_R_Point;
+	cv::String player_L_str;
+	cv::String player_R_str;
 };
 
 class CPong : public CBase4618
 {
 private:
-	//void update_Ball();	do i really need these?
-	//void update_Paddle();
 	void update();
 	void draw();
 
+	//structs usde to old the paramters for all of the objects
 	ball_Params		_Ball;
-	paddle_Params	paddle_L;
-	paddle_Params	paddle_R;
-	screen_Params	screen_Params;
-	
+	paddle_Params	paddle_L_Params;
+	paddle_Params	paddle_R_Params;
+	screen_Params	_canvas_Screen_Params;
+
 
 public:
 
@@ -65,4 +83,3 @@ public:
 
 	void run();
 };
-

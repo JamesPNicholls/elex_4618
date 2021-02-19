@@ -34,13 +34,14 @@ int main(int argc, char* argv[])
 		cout << "****************" << endl;
 		cout << " (4), Etch-e-Sketch" << endl;
 		cout << " (5), Pong" << endl;
-		cout << ">";
+		cout << " >>";
 		cin >> cmd;
 
 		switch (cmd)
 		{
 		case '4':
 		{
+			cout << "...Running lab 5" << endl;
 			CSketch sketch(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
 			sketch.run();
 			break;

@@ -9,7 +9,7 @@
 
 #define DRAW_CANVAS_OFFSET	150
 
-#define COM_PORT		10
+#define COM_PORT		3
 #define CIRCLE_RADIUS	10
 
 /**
@@ -46,6 +46,7 @@ protected:
 	virtual void draw() = 0;
 
 public:
+
 	/**
 	* @brief	default constructor
 	* @param	none

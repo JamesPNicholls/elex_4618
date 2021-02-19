@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 		cout << "****************" << endl;
 		cout << " (4), Etch-e-Sketch" << endl;
 		cout << " (5), Pong" << endl;
-		cout << ">" << endl;
+		cout << ">";
 		cin >> cmd;
 
 		switch (cmd)
@@ -51,7 +51,6 @@ int main(int argc, char* argv[])
 			pong.run();
 			break;
 		}
-
 
 		case 'q':
 			return 0;

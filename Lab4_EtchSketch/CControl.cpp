@@ -6,7 +6,6 @@
 using namespace std;
 using namespace cv;
 
-
 CControl::CControl() 
 {
 	
@@ -47,7 +46,7 @@ bool CControl::get_data (int type, int channel, int& result)
     Sleep(1); //this is needed as at times it causes an exception throw in some of the get_data calls;
     string out_String = "";
     // start timeout count
-    double start_time = getTickCount();
+    double start_time = getTickCount(); 
 
     buff[0] = 0;
     // Read 1 byte and if an End Of Line then exit loop

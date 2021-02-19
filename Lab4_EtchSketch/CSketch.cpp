@@ -91,7 +91,7 @@ void CSketch::update()
 	is_Button_Pushed = _base.get_button(push_Button1);
 	if (is_Button_Pushed)
 	{
-		_canvas = cv::Mat::zeros(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), CV_8UC3);
+		_canvas = cv::Scalar(0, 0, 0);
 	}
 }
 

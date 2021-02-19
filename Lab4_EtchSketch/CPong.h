@@ -16,15 +16,19 @@
 #define PADDLE_WIDTH	10
 #define PADDLE_HEIGHT	100
 
+#define SCORE_TEXT_HEIGHT	80
+#define LEFT_SCORE_POS_X	150
+#define RIGHT_SCORE_POS_X	650
+
 #define LINE_CENTER CANVAS_WIDTH/2
 
 struct paddle_Params
 {	
-	cv::Point pl_Point;
+	cv::Point paddle_Point;
 	int width;
 	int height;
 
-	cv::Rect pl_rectangle =		{ pl_Point.x, pl_Point.y, width, height };
+	cv::Rect pl_rectangle;
 	cv::Scalar paddle_Colour =	{ 255,255,255 };
 };
 
@@ -57,12 +61,14 @@ private:
 	void update();
 	void draw();
 
+	void reset_Screen_Parameters();
 	//structs usde to old the paramters for all of the objects
 	ball_Params		_Ball;
-	paddle_Params	paddle_L_Params;
-	paddle_Params	paddle_R_Params;
+	paddle_Params	left_Paddle_Params;
+	paddle_Params	right_Paddle_Params;
 	screen_Params	_canvas_Screen_Params;
 
+	const cv::Scalar black_Canvas = { 0,0,0 };
 
 public:
 

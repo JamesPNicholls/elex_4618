@@ -129,10 +129,10 @@ bool CControl::get_button(int channel)
     {
         if (result == 0)
         {
-            while (result != 1)
+            do 
             {
                 get_data(digital, channel, result);//interates when the button is unpressed
-            }
+            } while (result != 1);
             return true;
         }
     }

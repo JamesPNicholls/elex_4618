@@ -5,7 +5,7 @@
 #define BALL_X_START PONG_CANVAS_WIDTH/2
 #define BALL_Y_START PONG_CANVAS_HEIGHT/2
 
-#define BALL_RADIUS 15
+#define BALL_RADIUS 8
 
 #define PADDLE_LEFT_X 100
 #define PADDLE_LEFT_Y PONG_CANVAS_HEIGHT/2
@@ -29,26 +29,27 @@ struct paddle_Params
 	int height;
 
 	cv::Rect pl_rectangle;
-	cv::Scalar paddle_Colour =	{ 255,255,255 };
+	cv::Rect pl_Hit_Box;
+	const cv::Scalar paddle_Colour = { 255,255,255 };
+
 };
 
 struct ball_Params
 {
 	cv::Point ball_Cords;
-	
-	int8_t x_a;
-	int8_t y_a;
+	cv::Point ball_Vel;
+	cv::Point ball_Acc;
 
-	int8_t x_v;
-	int8_t y_v;
+	double current_Time;
+	double old_Time;
 };
 
 struct screen_Params
 {
 	int FPS;
-	int l_Score;
-	int r_Score;
-
+	int l_Score = 0;
+	int r_Score = 0;
+	 
 	cv::Point  player_L_Point;
 	cv::Point  player_R_Point;
 	cv::String player_L_str;
@@ -68,6 +69,7 @@ private:
 	paddle_Params	right_Paddle_Params;
 	screen_Params	_canvas_Screen_Params;
 
+	cv::Point CPong::vel_Gen();
 	const cv::Scalar black_Canvas = { 0,0,0 };
 
 public:

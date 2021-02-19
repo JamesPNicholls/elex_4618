@@ -26,33 +26,35 @@
 using namespace std;
 int main(int argc, char* argv[])
 {
-	int cmd;
-
-	cout << "*****************"		<< endl;
-	cout << "  Select a Lab"		<< endl;
-	cout << "****************"		<< endl;
-	cout << " (4), Etch-e-Sketch"	<< endl;
-	cout << " (5), Pong"			<< endl;
-	cout << ">"						<< endl;
-	cin >> cmd;
-
-	switch (cmd)
+	char cmd;
+	do
 	{
-	case 4:	
-	{
-		CSketch sketch(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
-		sketch.run();
-		break;
-	}
-	case 5:
-	{
-		CPong pong();
-		break;
-	}
-			
+		cout << "*****************" << endl;
+		cout << "  Select a Lab" << endl;
+		cout << "****************" << endl;
+		cout << " (4), Etch-e-Sketch" << endl;
+		cout << " (5), Pong" << endl;
+		cout << ">" << endl;
+		cin >> cmd;
 
-	case 'q':
-		return 0;
-	}
+		switch (cmd)
+		{
+		case '4':
+		{
+			CSketch sketch(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			sketch.run();
+			break;
+		}
+		case '5':
+		{
+			CPong pong(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			pong.run();
+			break;
+		}
 
+
+		case 'q':
+			return 0;
+		}
+	} while (1);
 }

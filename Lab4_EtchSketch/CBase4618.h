@@ -65,7 +65,7 @@ public:
 	* @param	none
 	* @return	none
 	*/	
-	void init_RGB_LED();
+	void init_RGB_LED();//MOVE THIS INTO CSketch because ill probably need a new one for the other labs
 
 	/**
 	* @brief	Loops update() and draw() and breaks if the user presses 'q'

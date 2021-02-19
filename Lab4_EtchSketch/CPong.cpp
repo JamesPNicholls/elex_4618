@@ -62,7 +62,7 @@ void CPong::reset_Screen_Parameters()
 void CPong::update()
 {
 	//Update the ball posistion
-	if (( (_Ball.ball_Cords.x - BALL_RADIUS) < 1) || (_Ball.ball_Cords.x + BALL_RADIUS > CANVAS_WIDTH ))
+	if (( (_Ball.ball_Cords.x - BALL_RADIUS) < 1) || (_Ball.ball_Cords.x + BALL_RADIUS > PONG_CANVAS_WIDTH))
 	{		
 		_Ball.x_v *= -1;
 		//make a score keeping function
@@ -72,12 +72,11 @@ void CPong::update()
 			*/
 	}
 
-	if ((_Ball.ball_Cords.y - BALL_RADIUS < 1) || (_Ball.ball_Cords.y + BALL_RADIUS > CANVAS_HEIGHT))
+	if ((_Ball.ball_Cords.y - BALL_RADIUS < 1) || (_Ball.ball_Cords.y + BALL_RADIUS > PONG_CANVAS_HEIGHT))
 	{
 		_Ball.y_v *= -1;
 	}
 
-	//need to factor in time
 	_Ball.ball_Cords.x += _Ball.x_v + _Ball.x_a;
 	_Ball.ball_Cords.y += _Ball.y_v + _Ball.y_a;
 
@@ -85,18 +84,18 @@ void CPong::update()
 	//Update the Left Paddles Y position
 	cv::Point temp;
 	_base.get_data(analog, joyStick_Y, temp.y);
-	temp.y = temp.y * CANVAS_HEIGHT / analog_Convesion_Factor; // Scales the joy stick to fit the screen
+	temp.y = temp.y * PONG_CANVAS_HEIGHT / analog_Convesion_Factor; // Scales the joy stick to fit the screen
 
 	// Keep the paddle inbounds
-	if ((temp.y) > CANVAS_HEIGHT)
+	if ((temp.y) > PONG_CANVAS_HEIGHT)
 	{
-		temp.y = CANVAS_HEIGHT;
+		temp.y = PONG_CANVAS_HEIGHT;
 	}
 	else if ((temp.y - PADDLE_HEIGHT) < 0)
 	{
 		temp.y = PADDLE_HEIGHT;
 	}
-	left_Paddle_Params.pl_rectangle.y = CANVAS_HEIGHT - temp.y;	//Y axis is iverted on the high_GUI
+	left_Paddle_Params.pl_rectangle.y = PONG_CANVAS_HEIGHT - temp.y;	//Y axis is iverted on the high_GUI
 
 	//sets the Right paddle to track the ball
 	right_Paddle_Params.pl_rectangle.y = _Ball.ball_Cords.y - PADDLE_HEIGHT/2;
@@ -127,8 +126,6 @@ void CPong::update()
 	}
 }
 
-
-
 void CPong::draw()
 {	
 	//Clear the screen and draws everything after update() has run
@@ -138,7 +135,7 @@ void CPong::draw()
 	//Vertical Center Line
 	cv::line(		_canvas,
 					cv::Point(LINE_CENTER, 0),
-					cv::Point(LINE_CENTER, CANVAS_HEIGHT),
+					cv::Point(LINE_CENTER, PONG_CANVAS_HEIGHT),
 					cv::Scalar(255, 255, 255));
 
 	//Left Paddle

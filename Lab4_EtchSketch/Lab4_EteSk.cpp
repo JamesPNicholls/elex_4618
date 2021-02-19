@@ -41,14 +41,15 @@ int main(int argc, char* argv[])
 		{
 		case '4':
 		{
-			cout << "...Running lab 5" << endl;
-			CSketch sketch(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			cout << "...Running lab 4" << endl;
+			CSketch sketch(cv::Size(ETCH_CANVAS_WIDTH, ETCH_CANVAS_HEIGHT), COM_PORT);
 			sketch.run();
 			break;
 		}
 		case '5':
 		{
-			CPong pong(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			cout << "...Running lab 5" << endl;
+			CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
 			pong.run();
 			break;
 		}

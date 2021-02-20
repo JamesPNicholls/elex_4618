@@ -54,7 +54,7 @@ void CPong::reset_Screen_Parameters()
 											right_Paddle_Params.height };
 
 	//Hitbox for the right paddle
-	right_Paddle_Params.pl_Hit_Box = { right_Paddle_Params.paddle_Point.x,
+	right_Paddle_Params.pl_Hit_Box = { 	right_Paddle_Params.paddle_Point.x,
 										right_Paddle_Params.paddle_Point.y,
 										right_Paddle_Params.width + 35,
 										right_Paddle_Params.height };
@@ -85,7 +85,7 @@ void CPong::update()
 		_Ball.ball_Vel = vel_Gen();
 		reset_Screen_Parameters();
 	}
-	if (_Ball.ball_Cords.x + BALL_RADIUS > PONG_CANVAS_WIDTH)
+	if ((_Ball.ball_Cords.x + BALL_RADIUS) > PONG_CANVAS_WIDTH)
 	{
 		_canvas_Screen_Params.l_Score++;
 		_Ball.ball_Vel = vel_Gen();
@@ -96,6 +96,8 @@ void CPong::update()
 	{
 		_Ball.ball_Vel.y *= -1;
 	}
+	//Update Velocity
+
 
 	//Update the ball posistion
 	_Ball.ball_Cords.x += _Ball.ball_Vel.x * delta_Time;
@@ -105,9 +107,11 @@ void CPong::update()
 	//Update the Left Paddles Y position
 	cv::Point temp = { 0,0 };
 	_base.get_data(analog, joyStick_Y, temp.y);
+
 	temp.y = temp.y * PONG_CANVAS_HEIGHT / analog_Convesion_Factor; // Scales the joy stick to fit the screen
 
-	// Keep the paddle inbounds
+
+	// Check if its out of bounds
 	if ((temp.y) > PONG_CANVAS_HEIGHT)
 	{
 		temp.y = PONG_CANVAS_HEIGHT;
@@ -120,7 +124,7 @@ void CPong::update()
 	left_Paddle_Params.pl_Hit_Box.y = PONG_CANVAS_HEIGHT - temp.y;	//Y axis is iverted on the high_GUI
 
 
-	//sets the Right paddle to track the ball
+	//sets the Right paddle & hitbox to track the ball
 	right_Paddle_Params.pl_rectangle.y = _Ball.ball_Cords.y - PADDLE_HEIGHT / 2;
 	right_Paddle_Params.pl_Hit_Box.y = _Ball.ball_Cords.y - PADDLE_HEIGHT / 2;
 
@@ -140,15 +144,16 @@ void CPong::update()
 		}
 	}
 
-	////Get button is super slow like 20ms slow idk why yet
-	if (_base.get_button(push_Button1))
+	//Reset the game if PB1 is pushed
+	if (_base.get_button(push_Button1))	//Get button is super slow like 20ms slow idk why yet
 	{
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
 	}
-	std::this_thread::sleep_until(end_time);
+
+	std::this_thread::sleep_until(end_time);lock the game to 
 	_Ball.old_Time = cv::getTickCount();
-}
+}//void CPong::update()
 
 cv::Point CPong::vel_Gen()
 {
@@ -175,7 +180,8 @@ cv::Point CPong::vel_Gen()
 		value.y = 1000 + value.y;
 	}
 	return value;
-}
+}//cv::Point CPong::vel_Gen()
+
 void CPong::draw()
 {	
 	//Clear the screen and draws everything after update() has run
@@ -236,7 +242,7 @@ void CPong::draw()
 					2);
 
 	cv::imshow("_canvas", _canvas);
-}
+}//void CPong::draw()
 
 void CPong::run()
 {
@@ -251,4 +257,4 @@ void CPong::run()
 		end = cv::getTickCount();		
 		_canvas_Screen_Params.FPS = 1 / ((end - start) / freq);
 	}
-}
+}//void CPong::run()

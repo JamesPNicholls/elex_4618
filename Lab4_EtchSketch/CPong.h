@@ -22,6 +22,7 @@
 
 #define LINE_CENTER PONG_CANVAS_WIDTH/2
 
+
 struct paddle_Params
 {	
 	cv::Point paddle_Point;
@@ -29,9 +30,9 @@ struct paddle_Params
 	int height;
 
 	cv::Rect pl_rectangle;
-	cv::Rect pl_Hit_Box;
-	const cv::Scalar paddle_Colour = { 255,255,255 };
-
+	cv::Rect pl_Hit_Box; 	//follows pl_rectangle and extends behind it, a really bad way to deal with the collision
+							//a better way would be to track the postion of the ball and determine if it passed over the paddle in the past tick
+	const cv::Scalar paddle_Colour = { 255,255,255 };//White, could use CV_RGB type
 };
 
 struct ball_Params
@@ -58,21 +59,46 @@ struct screen_Params
 	cv::String player_R_str;
 };
 
+/**
+ * @brief 	Iinherited class of CBase 1618
+ * 			Contains the structs of the different drawable polygons
+ * 			I should make each of the paddles and balls their own objects
+ * 
+ */
 class CPong : public CBase4618
 {
 private:
+
+	ball_Params		_Ball;						///<
+	paddle_Params	left_Paddle_Params;			///<
+	paddle_Params	right_Paddle_Params;		///<
+	screen_Params	_canvas_Screen_Params;		///<
+	const cv::Scalar black_Canvas = { 0,0,0 };	///<
+
+	/**
+	 * @brief updates all of the values for each of the structs and 
+	 * 
+	 */
 	void update();
+
+	/**
+	 * @brief 
+	 * 
+	 */
 	void draw();
 
+	/**
+	 * @brief 
+	 * 
+	 */
 	void reset_Screen_Parameters();
-	//structs usde to old the paramters for all of the objects
-	ball_Params		_Ball;
-	paddle_Params	left_Paddle_Params;
-	paddle_Params	right_Paddle_Params;
-	screen_Params	_canvas_Screen_Params;
 
-	cv::Point CPong::vel_Gen();
-	const cv::Scalar black_Canvas = { 0,0,0 };
+	/**
+	 * @brief 
+	 * 
+	 * @return cv::Point 
+	 */
+	cv::Point CPong::vel_Gen();	
 
 public:
 
@@ -89,7 +115,16 @@ public:
 	 * @param comPort_Num 	com port for communicating with a MK2 launchpad/boosterpack
 	 */
 	CPong(cv::Size _Size, int comPort_Num);
+
+	/**
+	 * @brief Destroy the CPong object
+	 * 
+	 */
 	~CPong();
 
+	/**
+	 * @brief loops update() and draw() and handles the threading + timing
+	 * 
+	 */
 	void run();
 };

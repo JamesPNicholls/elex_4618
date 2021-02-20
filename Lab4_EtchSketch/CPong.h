@@ -47,6 +47,8 @@ struct ball_Params
 struct screen_Params
 {
 	int FPS;
+	cv::Point fps_Point;
+
 	int l_Score = 0;
 	int r_Score = 0;
 	 

@@ -29,8 +29,7 @@ void CPong::reset_Screen_Parameters()
 	_Ball.old_Time		= cv::getTickCount();
 	
 	//Left Paddle
-	left_Paddle_Params.paddle_Point.x	= PADDLE_LEFT_X;
-	left_Paddle_Params.paddle_Point.y	= PADDLE_LEFT_Y;
+	left_Paddle_Params.paddle_Point		= { PADDLE_LEFT_X, PADDLE_LEFT_Y };
 	left_Paddle_Params.width			= PADDLE_WIDTH;
 	left_Paddle_Params.height			= PADDLE_HEIGHT;
 	left_Paddle_Params.pl_rectangle		= { left_Paddle_Params.paddle_Point.x,
@@ -46,8 +45,7 @@ void CPong::reset_Screen_Parameters()
 
 
 	//Right Paddle
-	right_Paddle_Params.paddle_Point.x	= PADDLE_RIGHT_X;
-	right_Paddle_Params.paddle_Point.y	= PADDKE_RIGHT_Y;
+	right_Paddle_Params.paddle_Point	= { PADDLE_RIGHT_X, PADDKE_RIGHT_Y };
 	right_Paddle_Params.width			= PADDLE_WIDTH;
 	right_Paddle_Params.height			= PADDLE_HEIGHT;
 	right_Paddle_Params.pl_rectangle	= { right_Paddle_Params.paddle_Point.x,
@@ -64,14 +62,18 @@ void CPong::reset_Screen_Parameters()
 
 	//Screen Params
 	_canvas_Screen_Params.FPS = 0;
+	_canvas_Screen_Params.fps_Point = { 950,30 };
 	_canvas_Screen_Params.player_L_str = "Player 1: " + std::to_string(_canvas_Screen_Params.l_Score);
 	_canvas_Screen_Params.player_R_str = "Player 2: " + std::to_string(_canvas_Screen_Params.r_Score);
 	_canvas_Screen_Params.player_L_Point = cv::Point(LEFT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
 	_canvas_Screen_Params.player_R_Point = cv::Point(RIGHT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
+	
+
 }
 
 void CPong::update()
 {
+	auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(33);
 
 	//Update Velocity and Acceleration of the ball
 	_Ball.current_Time = cv::getTickCount();
@@ -144,6 +146,7 @@ void CPong::update()
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
 	}
+	std::this_thread::sleep_until(end_time);
 	_Ball.old_Time = cv::getTickCount();
 }
 
@@ -151,25 +154,25 @@ cv::Point CPong::vel_Gen()
 {
 	cv::Point value;
 	srand(time(NULL));
-	value.x = rand() % 600;
-	value.y = rand() % 150;
+	value.x = rand() % 1500;
+	value.y = rand() % 500;
 
 	if((value.x % 2) == 0 )
 	{
-		value.x = (1300 + value.x)*-1; //negative if even
+		value.x = (3000 + value.x)*-1; //negative if even
 	}
 	else
 	{
-		value.x = 1300 + value.x;	//positive if odd
+		value.x = 3000 + value.x;	//positive if odd
 	}
 
 	if ((value.y % 2) == 0)
 	{
-		value.y = (300 + value.y)*-1;
+		value.y = (1000 + value.y)*-1;
 	}
 	else
 	{
-		value.y = 300 + value.y;
+		value.y = 1000 + value.y;
 	}
 	return value;
 }
@@ -224,9 +227,14 @@ void CPong::draw()
 					cv::Scalar(255, 255, 255), 
 					2);
 	//FPS
-	//cv::putText(	_canvas,
-	//				_canvas_Screen
-	//
+	cv::putText(	_canvas,
+					std::to_string(_canvas_Screen_Params.FPS),
+					_canvas_Screen_Params.fps_Point,
+					cv::FONT_HERSHEY_SIMPLEX,
+					1.0,
+					cv::Scalar(255, 255, 255),
+					2);
+
 	cv::imshow("_canvas", _canvas);
 }
 
@@ -236,13 +244,11 @@ void CPong::run()
 	freq = cv::getTickFrequency();
 	while (cv::waitKey(1) != 'q')
 	{
+		// 30 Hz
 		start = cv::getTickCount();
-		auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(33);// 30 Hz
-		update();
-		std::this_thread::sleep_until(end_time);
-		
+		update();	
 		draw();
-		end = cv::getTickCount();
+		end = cv::getTickCount();		
 		_canvas_Screen_Params.FPS = 1 / ((end - start) / freq);
 	}
 }

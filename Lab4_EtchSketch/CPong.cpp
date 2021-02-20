@@ -79,11 +79,11 @@ void CPong::update()
 	_Ball.current_Time = cv::getTickCount();
 	double delta_Time = (_Ball.current_Time - _Ball.old_Time) / cv::getTickFrequency();
 
-	if (((_Ball.ball_Cords.x - BALL_RADIUS) < 1))
+	if (((_Ball.ball_Cords.x - BALL_RADIUS) < 1)) //If the ball hits left wall the right player gets a point
 	{
-		_canvas_Screen_Params.r_Score++;
-		_Ball.ball_Vel = vel_Gen();
-		reset_Screen_Parameters();
+		_canvas_Screen_Params.r_Score++;	
+		_Ball.ball_Vel = vel_Gen();			//Give the ball a new velovity
+		reset_Screen_Parameters();			//reset the screen
 	}
 	if ((_Ball.ball_Cords.x + BALL_RADIUS) > PONG_CANVAS_WIDTH)
 	{
@@ -92,15 +92,15 @@ void CPong::update()
 		reset_Screen_Parameters();
 	}
 
-	if (((_Ball.ball_Cords.y - BALL_RADIUS) < 0) || ((_Ball.ball_Cords.y + BALL_RADIUS) > PONG_CANVAS_HEIGHT))
+	if (((_Ball.ball_Cords.y - BALL_RADIUS) < 0) || ((_Ball.ball_Cords.y + BALL_RADIUS) > PONG_CANVAS_HEIGHT)) 
 	{
-		_Ball.ball_Vel.y *= -1;
+		_Ball.ball_Vel.y *= -1; //Redirect the ball if it hits the top or bottom
 	}
 	//Update Velocity
 
 
 	//Update the ball posistion
-	_Ball.ball_Cords.x += _Ball.ball_Vel.x * delta_Time;
+	_Ball.ball_Cords.x += _Ball.ball_Vel.x * delta_Time; //d = v*t
 	_Ball.ball_Cords.y += _Ball.ball_Vel.y * delta_Time;
 
 
@@ -120,8 +120,8 @@ void CPong::update()
 	{
 		temp.y = PADDLE_HEIGHT;
 	}
-	left_Paddle_Params.pl_rectangle.y = PONG_CANVAS_HEIGHT - temp.y;
-	left_Paddle_Params.pl_Hit_Box.y = PONG_CANVAS_HEIGHT - temp.y;	//Y axis is iverted on the high_GUI
+	left_Paddle_Params.pl_rectangle.y = PONG_CANVAS_HEIGHT - temp.y;	//Y axis is iverted on the high_GUI
+	left_Paddle_Params.pl_Hit_Box.y = PONG_CANVAS_HEIGHT - temp.y;		//Hit box follows the paddle
 
 
 	//sets the Right paddle & hitbox to track the ball
@@ -131,7 +131,7 @@ void CPong::update()
 	//Collision Detection
 	if (left_Paddle_Params.pl_Hit_Box.contains(_Ball.ball_Cords))
 	{
-		if (_Ball.ball_Vel.x < 0)// turns the ball around if the ball is moving left, other wise ignore it
+		if (_Ball.ball_Vel.x < 0)// turns the ball around if the ball is moving left, other wise ignore its
 		{
 			_Ball.ball_Vel.x *= -1;
 		}
@@ -151,24 +151,25 @@ void CPong::update()
 		_Ball.ball_Vel = vel_Gen();
 	}
 
-	std::this_thread::sleep_until(end_time);lock the game to 
+	std::this_thread::sleep_until(end_time); //lock the game to 30fps
 	_Ball.old_Time = cv::getTickCount();
+	
+	return;
 }//void CPong::update()
 
 cv::Point CPong::vel_Gen()
 {
 	cv::Point value;
 	srand(time(NULL));
-	value.x = rand() % 1500;
-	value.y = rand() % 500;
+	value = { rand() % 1500 , rand() % 500 };
 
 	if((value.x % 2) == 0 )
 	{
-		value.x = (3000 + value.x)*-1; //negative if even
+		value.x = (3000 + value.x)*-1; //negative v if even
 	}
 	else
 	{
-		value.x = 3000 + value.x;	//positive if odd
+		value.x = 3000 + value.x;	//positive v if odd
 	}
 
 	if ((value.y % 2) == 0)
@@ -184,9 +185,8 @@ cv::Point CPong::vel_Gen()
 
 void CPong::draw()
 {	
-	//Clear the screen and draws everything after update() has run
-	
-	_canvas = black_Canvas;
+	//Clear the screen and draws everything after update() has run	
+	_canvas = black_Canvas; 
 
 	//Vertical Center Line
 	cv::line(		_canvas,
@@ -203,7 +203,7 @@ void CPong::draw()
 	
 	//Right Paddle
 	cv::rectangle(	_canvas,
-					//right_Paddle_Params.pl_Hit_Box,  hit box testing
+					//right_Paddle_Params.pl_Hit_Box, 	<-hit box testing
 					right_Paddle_Params.pl_rectangle,					
 					right_Paddle_Params.paddle_Colour,
 					cv::FILLED);
@@ -224,7 +224,7 @@ void CPong::draw()
 					cv::Scalar(255, 255, 255),
 					2);
 
-	//Right Player Score
+	//Right Player Score 
 	cv::putText(	_canvas,
 					_canvas_Screen_Params.player_R_str,
 					_canvas_Screen_Params.player_R_Point,

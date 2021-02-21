@@ -12,8 +12,8 @@ CPong::CPong(cv::Size _Size, int comPort_Num)
 {
 	_canvas = cv::Mat::zeros(_Size, CV_8UC3); 	//type cv::Mat object in CBase4618
 	_base.init_com(comPort_Num);				//type CControl object in CBase4618
-	reset_Screen_Parameters();					//Initialize all of the param structs
-	_Ball.ball_Vel = vel_Gen();
+	reset_Screen_Parameters();					//Initialize all of the parameters of the polygon structs
+	_Ball.ball_Vel = vel_Gen();					//Generates an initial velocity for the ball
 }
 
 CPong::~CPong()
@@ -27,7 +27,7 @@ void CPong::reset_Screen_Parameters()
 	_Ball.ball_Cords	= { BALL_X_START, BALL_Y_START};
 	_Ball.current_Time	= cv::getTickCount();
 	_Ball.old_Time		= cv::getTickCount();
-	
+
 	//Left Paddle
 	left_Paddle_Params.paddle_Point		= { PADDLE_LEFT_X, PADDLE_LEFT_Y };
 	left_Paddle_Params.width			= PADDLE_WIDTH;
@@ -59,7 +59,6 @@ void CPong::reset_Screen_Parameters()
 										right_Paddle_Params.width + 35,
 										right_Paddle_Params.height };
 
-
 	//Screen Params
 	_canvas_Screen_Params.FPS = 0;
 	_canvas_Screen_Params.fps_Point = { 950,30 };
@@ -67,8 +66,6 @@ void CPong::reset_Screen_Parameters()
 	_canvas_Screen_Params.player_R_str = "Player 2: " + std::to_string(_canvas_Screen_Params.r_Score);
 	_canvas_Screen_Params.player_L_Point = cv::Point(LEFT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
 	_canvas_Screen_Params.player_R_Point = cv::Point(RIGHT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
-	
-
 }
 
 void CPong::update()
@@ -161,24 +158,27 @@ cv::Point CPong::vel_Gen()
 {
 	cv::Point value;
 	srand(time(NULL));
-	value = { rand() % 1500 , rand() % 500 };
+	
+	//Generate a random value to be added to the the x&y base values to add some randomness to the ball movement
+	value = { rand() % X_VELOCITY_OFFSET , rand() % Y_VELOCITY_OFFSET }; 
 
 	if((value.x % 2) == 0 )
 	{
-		value.x = (3000 + value.x)*-1; //negative v if even
+		//Adds the offset value to the base value 
+		value.x = (X_VELOCITY_BASE_VALUE + value.x)*-1; //negative v if even
 	}
 	else
 	{
-		value.x = 3000 + value.x;	//positive v if odd
+		value.x = X_VELOCITY_BASE_VALUE + value.x;	//positive v if odd
 	}
 
 	if ((value.y % 2) == 0)
 	{
-		value.y = (1000 + value.y)*-1;
+		value.y = (Y_VELOCITY_BASE_VALUE + value.y)*-1;
 	}
 	else
 	{
-		value.y = 1000 + value.y;
+		value.y = Y_VELOCITY_BASE_VALUE + value.y;
 	}
 	return value;
 }//cv::Point CPong::vel_Gen()

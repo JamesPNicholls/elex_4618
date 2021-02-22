@@ -23,7 +23,7 @@
 #include "CPong.h"
 #include "CSketch.h"
 #include "CControl.h"
-#include "CAsteroid_Game.h"
+//#include "CAsteroid_Game.h" //for lab 6
 
 
 using namespace std;
@@ -55,14 +55,15 @@ int main(int argc, char* argv[])
 			cout << "...Running lab 5, Pong" << endl << endl;
 			CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
 			pong.run();
+			pong.~CPong();
 			break;
 		}
 
 		case '6':
 		{
 			cout << "...Lab 6 is a work in process" << endl << endl;;
-			CAsteroid_Game asteroid;
-			asteroid.run();
+			//CAsteroid_Game asteroid;
+			//asteroid.run();
 			break;
 		}
 			

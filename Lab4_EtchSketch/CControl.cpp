@@ -28,6 +28,7 @@ bool CControl::init_com(int com_Port_Num)
     {
         return false;
     }
+    button_Flag = false;
 }
 
 bool CControl::get_data (int type, int channel, int& result)
@@ -43,7 +44,7 @@ bool CControl::get_data (int type, int channel, int& result)
 
     // Send command_String
     _com.write(command_String.c_str(), command_String.length());
-    Sleep(1); //this is needed as at times it causes an exception throw in some of the get_data calls;
+    Sleep(5); //this is needed as at times it causes an exception throw in some of the get_data calls;
     string out_String = "";
     // start timeout count
     double start_time = getTickCount(); 
@@ -59,7 +60,7 @@ bool CControl::get_data (int type, int channel, int& result)
         }
     }
 
-    if (result_String == "") // blank value will cause an error and crash the program inside of throw.cpp
+    if (result_String == "" || result_String == "\n") // blank value will cause an error and crash the program inside of throw.cpp
     {
         return false;
     }
@@ -80,8 +81,6 @@ bool CControl::get_analog(int type, int channel)
 
     cout << fixed;
 
-    test = waitKeyEx(100);
-    cout << "Test: " << test << "\t";
     if (get_data(type, joyStick_X, x_result))
     {
         x_percent = (float)x_result / analog_Convesion_Factor * percentile_Factor;
@@ -123,17 +122,29 @@ bool CControl::set_data(int type, int channel, int val)
 }
 
 bool CControl::get_button(int channel)
-{
+{   
+    float start = cv::getTickCount();
     int result;
     if (get_data(digital, channel, result))
     {
+        cout << result << endl;
         if (result == 0)
         {
-            do 
+            cv::waitKey(3);
+            if (button_Flag == true)
             {
-                get_data(digital, channel, result);//interates when the button is unpressed
-            } while (result != 1);
-            return true;
+                return false;
+            }
+            else
+            {
+                button_Flag = true;
+                return true;
+            }
+        }
+        else if (result == 1)
+        {
+            button_Flag = false;
+            return false;
         }
     }
     return false;    

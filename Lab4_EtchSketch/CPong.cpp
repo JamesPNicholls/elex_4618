@@ -142,11 +142,14 @@ void CPong::update()
 	}
 
 	//Reset the game if PB1 is pushed
+	
 	if (_base.get_button(push_Button1))	//Get button is super slow like 20ms slow idk why yet
 	{
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
 	}
+
+
 	
 	update_Thread_Exit_Flag = true; //thread flag gets set
 }//void CPong::update()

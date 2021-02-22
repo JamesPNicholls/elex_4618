@@ -4,6 +4,8 @@
 #include <string>
 #include <thread>
 
+using namespace std::chrono;
+
 CPong::CPong() : CBase4618()
 {
 }
@@ -61,7 +63,7 @@ void CPong::reset_Screen_Parameters()
 
 	//Screen Params
 	_canvas_Screen_Params.FPS = 0;
-	_canvas_Screen_Params.fps_Point = { 950,30 };
+	_canvas_Screen_Params.fps_Point = FPS_POS;
 	_canvas_Screen_Params.player_L_str = "Player 1: " + std::to_string(_canvas_Screen_Params.l_Score);
 	_canvas_Screen_Params.player_R_str = "Player 2: " + std::to_string(_canvas_Screen_Params.r_Score);
 	_canvas_Screen_Params.player_L_Point = cv::Point(LEFT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
@@ -70,15 +72,17 @@ void CPong::reset_Screen_Parameters()
 
 void CPong::update()
 {
-	auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(33);
-
 	//Update Velocity and Acceleration of the ball
-	_Ball.current_Time = cv::getTickCount();
+	_Ball.current_Time = cv::getTickCount();	
 	double delta_Time = (_Ball.current_Time - _Ball.old_Time) / cv::getTickFrequency();
 
+	_Ball.ball_Cords.x += _Ball.ball_Vel.x * delta_Time; //d = v*t
+	_Ball.ball_Cords.y += _Ball.ball_Vel.y * delta_Time;
+
+	//Update Position
 	if (((_Ball.ball_Cords.x - BALL_RADIUS) < 1)) //If the ball hits left wall the right player gets a point
 	{
-		_canvas_Screen_Params.r_Score++;	
+		_canvas_Screen_Params.r_Score++;
 		_Ball.ball_Vel = vel_Gen();			//Give the ball a new velovity
 		reset_Screen_Parameters();			//reset the screen
 	}
@@ -89,16 +93,12 @@ void CPong::update()
 		reset_Screen_Parameters();
 	}
 
-	if (((_Ball.ball_Cords.y - BALL_RADIUS) < 0) || ((_Ball.ball_Cords.y + BALL_RADIUS) > PONG_CANVAS_HEIGHT)) 
+	if (((_Ball.ball_Cords.y - BALL_RADIUS) < 0) || ((_Ball.ball_Cords.y + BALL_RADIUS) > PONG_CANVAS_HEIGHT))
 	{
-		_Ball.ball_Vel.y *= -1; //Redirect the ball if it hits the top or bottom
+		_Ball.ball_Vel.y *= -1;
 	}
-	//Update Velocity
+	_Ball.old_Time = cv::getTickCount();
 
-
-	//Update the ball posistion
-	_Ball.ball_Cords.x += _Ball.ball_Vel.x * delta_Time; //d = v*t
-	_Ball.ball_Cords.y += _Ball.ball_Vel.y * delta_Time;
 
 
 	//Update the Left Paddles Y position
@@ -147,11 +147,8 @@ void CPong::update()
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
 	}
-
-	std::this_thread::sleep_until(end_time); //lock the game to 30fps
-	_Ball.old_Time = cv::getTickCount();
 	
-	return;
+	update_Thread_Exit_Flag = true; //thread flag gets set
 }//void CPong::update()
 
 cv::Point CPong::vel_Gen()
@@ -184,7 +181,7 @@ cv::Point CPong::vel_Gen()
 }//cv::Point CPong::vel_Gen()
 
 void CPong::draw()
-{	
+{
 	//Clear the screen and draws everything after update() has run	
 	_canvas = black_Canvas; 
 
@@ -232,6 +229,7 @@ void CPong::draw()
 					1.0,
 					cv::Scalar(255, 255, 255), 
 					2);
+	
 	//FPS
 	cv::putText(	_canvas,
 					std::to_string(_canvas_Screen_Params.FPS),
@@ -246,15 +244,46 @@ void CPong::draw()
 
 void CPong::run()
 {
-	float start, end, freq;
-	freq = cv::getTickFrequency();
+	long int freq_t, end_t, start_t;
+	freq_t = cv::getTickFrequency();
 	while (cv::waitKey(1) != 'q')
 	{
-		// 30 Hz
-		start = cv::getTickCount();
-		update();	
+		auto start = system_clock::now();
+		auto end = start + milliseconds(33); //30 Hz		
+		
+		start_Thread();//completes update() using m;ultithreading
 		draw();
-		end = cv::getTickCount();		
-		_canvas_Screen_Params.FPS = 1 / ((end - start) / freq);
+		std::this_thread::sleep_until(end);
+
+		start_t = start.time_since_epoch().count(); //Converts the std::chrono time_point into a usable value;
+		end_t = end.time_since_epoch().count();
+
+		_canvas_Screen_Params.FPS = freq_t / (end_t - start_t);
 	}
+
 }//void CPong::run()
+
+void CPong::start_Thread()
+{	
+	std::thread t1(&CPong::update_Thread, this);
+	t1.join();
+}
+
+void CPong::end_Thread()
+{
+
+}
+
+void CPong::update_Thread(CPong* ptr)
+{
+	while (ptr->update_Thread_Exit_Flag == false)
+	{
+		ptr->update();
+	}
+	ptr->update_Thread_Exit_Flag = false; //clear the flag
+}
+
+void CPong::draw_Thread(CPong* ptr)
+{
+
+}

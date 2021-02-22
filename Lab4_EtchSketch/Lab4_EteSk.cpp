@@ -34,26 +34,35 @@ int main(int argc, char* argv[])
 		cout << "****************" << endl;
 		cout << " (4), Etch-e-Sketch" << endl;
 		cout << " (5), Pong" << endl;
+		cout << " (6), Asteroids" << endl;
 		cout << " >>";
 		cin >> cmd;
 
 		switch (cmd)
 		{
-		case '4':
+		case '4': 
 		{
-			cout << "...Running lab 4" << endl;
+			cout << "...Running lab 4, Etch-E-Sketch" << endl << endl;
 			CSketch sketch(cv::Size(ETCH_CANVAS_WIDTH, ETCH_CANVAS_HEIGHT), COM_PORT);
 			sketch.run();
 			break;
 		}
 		case '5':
 		{
-			cout << "...Running lab 5" << endl;
+			cout << "...Running lab 5, Pong" << endl << endl;
 			CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
 			pong.run();
 			break;
 		}
 
+		case '6':
+		{
+			cout << "...Lab 6 is currently unavailable" << endl;
+			//CAsteroids asteroids(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
+			//asteroids.run();
+			break;
+		}
+			
 		case 'q':
 			return 0;
 		}

@@ -21,15 +21,20 @@
 #define RIGHT_SCORE_POS_X	650
 
 #define LINE_CENTER PONG_CANVAS_WIDTH/2
+#define FPS_POS cv::Point{700, 30}
 
-#define X_VELOCITY_OFFSET		1500
-#define X_VELOCITY_BASE_VALUE	3000
-#define Y_VELOCITY_OFFSET		600
-#define Y_VELOCITY_BASE_VALUE	500
+//number are pretty arbitrary, just found some that worked
+#define X_VELOCITY_OFFSET		200
+#define X_VELOCITY_BASE_VALUE	500
+#define Y_VELOCITY_OFFSET		200
+#define Y_VELOCITY_BASE_VALUE	150
+
+
 
 /**
- * @brief Struct used to hold the paramters for the left and righ paddles
- * 
+ * @struct 	paddle_Params
+ * @brief 	Struct used to hold the paramters for the left and righ paddles
+ *  
  */
 struct paddle_Params
 {	
@@ -44,8 +49,10 @@ struct paddle_Params
 	
 	const cv::Scalar paddle_Colour = { 255,255,255 };//White, could use CV_RGB type
 };
+
 /**
- * @brief Struct used to hold the paramters for the ball
+ * @struct 	ball_Params
+ * @brief 	Struct used to hold the paramters for the ball
  * 
  */
 struct ball_Params
@@ -59,13 +66,14 @@ struct ball_Params
 };
 
 /**
+ * @struct 	screen_Params
  * @brief 	Struct used to hold values for the unmoving objects of the screen \n
  * 			Player scores + location, FPS counter + location
  * 
  */
 struct screen_Params
 {
-	int FPS;					///< The current frame rate, printed in the top right corner
+	long int FPS;					///< The current frame rate, printed in the top right corner
 	cv::Point fps_Point;		///< Location of the FPS counter
 
 	int l_Score = 0;			///< Score of left and right players
@@ -79,8 +87,9 @@ struct screen_Params
 
 /**
  * @brief 	Child class of CBase4618 \n
+ * 			Executes a playable version of Pong \n
  * 			Contains the structs of the different drawable polygons \n
- * 			I should make each of the paddles and balls their own objects 
+ * 
  */
 class CPong : public CBase4618
 {
@@ -91,9 +100,12 @@ private:
 	paddle_Params	right_Paddle_Params;		///< Parameters for the right paddle
 	screen_Params	_canvas_Screen_Params;		///< Parameters for the non-moving objects on screen
 	const cv::Scalar black_Canvas = { 0,0,0 };	///< Blank canvas to clear the screen on each reset
-
+	
+	bool update_Thread_Exit_Flag;				///< Thread exit flag for update_Thread() and update()
+	bool draw_Thread_Exit_Flag;					///< Thread exit flag for update_Draw() and draw()
+	
 	/**
-	 * @brief updates all of the values for each of the structs and 
+	 * @brief updates all of the values for each of the objects on screen
 	 * 
 	 */
 	void update();
@@ -112,11 +124,14 @@ private:
 
 	/**
 	 * @brief 	Generates a new random value for the x&y velocity \n
-	 *			Values were chosen rather arbitrarily until they looked nice \n
+	 *			Values were chosen arbitrarily until they looked nice \n
 	 * 			 
 	 * @return cv::Point	returns the new x&y velocity, can be positive or negative
 	 */
 	cv::Point CPong::vel_Gen();	
+
+	static void update_Thread(CPong* ptr);
+	static void draw_Thread(CPong* ptr);
 
 public:
 
@@ -130,7 +145,7 @@ public:
 	 * @brief Constructor that initalizes the cv::Mat \n
 	 * 			 and populates all the object structs with their default values
 	 * 
-	 * @param _Size 		size of _canvas to draw on
+	 * @param _Size 		size of _canvas to draw on, based on PONG_CANVAS_HEIGHT & PONG_CANVAS_WIDTH
 	 * @param comPort_Num 	com port for communicating with a MK2 launchpad/boosterpack
 	 */
 	CPong(cv::Size _Size, int comPort_Num);
@@ -146,4 +161,6 @@ public:
 	 * 
 	 */
 	void run();
+	void start_Thread();
+	void end_Thread();
 };

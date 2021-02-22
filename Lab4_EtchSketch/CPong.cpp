@@ -249,18 +249,17 @@ void CPong::run()
 	while (cv::waitKey(1) != 'q')
 	{
 		auto start = system_clock::now();
-		auto end = start + milliseconds(33); //30 Hz		
+		auto end = start + milliseconds(33); //30 Hz	
 		
 		start_Thread();//completes update() using m;ultithreading
 		draw();
 		std::this_thread::sleep_until(end);
 
-		start_t = start.time_since_epoch().count(); //Converts the std::chrono time_point into a usable value;
+		start_t = start.time_since_epoch().count(); //Converts the std::chrono time_point into a usable integer;
 		end_t = end.time_since_epoch().count();
 
 		_canvas_Screen_Params.FPS = freq_t / (end_t - start_t);
 	}
-
 }//void CPong::run()
 
 void CPong::start_Thread()
@@ -269,10 +268,7 @@ void CPong::start_Thread()
 	t1.join();
 }
 
-void CPong::end_Thread()
-{
 
-}
 
 void CPong::update_Thread(CPong* ptr)
 {
@@ -281,9 +277,4 @@ void CPong::update_Thread(CPong* ptr)
 		ptr->update();
 	}
 	ptr->update_Thread_Exit_Flag = false; //clear the flag
-}
-
-void CPong::draw_Thread(CPong* ptr)
-{
-
 }

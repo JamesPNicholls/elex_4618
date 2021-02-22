@@ -73,7 +73,7 @@ struct ball_Params
  */
 struct screen_Params
 {
-	long int FPS;					///< The current frame rate, printed in the top right corner
+	long int FPS;				///< The current frame rate, printed in the top right corner
 	cv::Point fps_Point;		///< Location of the FPS counter
 
 	int l_Score = 0;			///< Score of left and right players
@@ -102,7 +102,6 @@ private:
 	const cv::Scalar black_Canvas = { 0,0,0 };	///< Blank canvas to clear the screen on each reset
 	
 	bool update_Thread_Exit_Flag;				///< Thread exit flag for update_Thread() and update()
-	bool draw_Thread_Exit_Flag;					///< Thread exit flag for update_Draw() and draw()
 	
 	/**
 	 * @brief updates all of the values for each of the objects on screen
@@ -130,8 +129,12 @@ private:
 	 */
 	cv::Point CPong::vel_Gen();	
 
+	/**
+	 * @brief handles the threading for update()
+	 * 
+	 * @param ptr the type CPong pong that contains the members fns and variable
+	 */
 	static void update_Thread(CPong* ptr);
-	static void draw_Thread(CPong* ptr);
 
 public:
 
@@ -161,6 +164,11 @@ public:
 	 * 
 	 */
 	void run();
+
+	/**
+	 * @brief 	Public member to start the threading in update_Thread() \n
+	 * 			Resets the update_Thread_Exit_Flag when the thread finishes
+	 * 
+	 */
 	void start_Thread();
-	void end_Thread();
 };

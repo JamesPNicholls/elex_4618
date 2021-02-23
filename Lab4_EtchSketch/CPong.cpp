@@ -68,6 +68,8 @@ void CPong::reset_Screen_Parameters()
 	_canvas_Screen_Params.player_R_str = "Player 2: " + std::to_string(_canvas_Screen_Params.r_Score);
 	_canvas_Screen_Params.player_L_Point = cv::Point(LEFT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
 	_canvas_Screen_Params.player_R_Point = cv::Point(RIGHT_SCORE_POS_X, SCORE_TEXT_HEIGHT);
+
+	button_Flag = false;
 }
 
 void CPong::update()
@@ -142,7 +144,7 @@ void CPong::update()
 	}
 
 	//Reset the game if PB1 is pushed
-	if (_base.get_button(push_Button1))	//Get button is super slow like 20ms slow idk why yet
+	if (_base.get_button(push_Button1, button_Flag))	//Get button is super slow like 20ms slow idk why yet
 	{
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
@@ -265,7 +267,7 @@ void CPong::run()
 void CPong::start_Thread()
 {	
 	std::thread t1(&CPong::update_Thread, this);
-	t1.join();
+	t1.detach();
 }
 
 

@@ -122,21 +122,33 @@ bool CControl::set_data(int type, int channel, int val)
     return true;
 }
 
-bool CControl::get_button(int channel)
+bool CControl::get_button(int channel, bool button_Flag)
 {
+    float start = cv::getTickCount();
     int result;
     if (get_data(digital, channel, result))
     {
+        cout << result << endl;
         if (result == 0)
         {
-            do 
+            cv::waitKey(3);
+            if (button_Flag == true)
             {
-                get_data(digital, channel, result);//interates when the button is unpressed
-            } while (result != 1);
-            return true;
+                return false;
+            }
+            else
+            {
+                button_Flag = true;
+                return true;
+            }
+        }
+        else if (result == 1)
+        {
+            button_Flag = false;
+            return false;
         }
     }
-    return false;    
+    return false;
 }
 
 bool CControl::get_data_poll(int type, int channel)

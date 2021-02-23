@@ -18,6 +18,8 @@ CSketch::CSketch(cv::Size _Size, int commPort_Num) : CBase4618()
 
 	current_XY_Cords.x = new_XY_Cords.x = ETCH_CANVAS_WIDTH / 2;
 	current_XY_Cords.x = new_XY_Cords.y = ETCH_CANVAS_WIDTH / 2;
+
+	button_Flag = false;
 }
 
 CSketch::~CSketch()
@@ -27,7 +29,7 @@ CSketch::~CSketch()
 
 void CSketch::update()
 {
-	bool is_Button_Pushed = _base.get_button(push_Button2);
+	bool is_Button_Pushed = _base.get_button(push_Button2, button_Flag);
 
 	if (is_Button_Pushed == true)
 	{
@@ -88,7 +90,7 @@ void CSketch::update()
 	}
 
 	//Clears the screen if PB1 is pushed
-	is_Button_Pushed = _base.get_button(push_Button1);
+	is_Button_Pushed = _base.get_button(push_Button1, button_Flag);
 	if (is_Button_Pushed)
 	{
 		_canvas = cv::Scalar(0, 0, 0);

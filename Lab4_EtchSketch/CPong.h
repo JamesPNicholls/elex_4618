@@ -102,7 +102,8 @@ private:
 	const cv::Scalar black_Canvas = { 0,0,0 };	///< Blank canvas to clear the screen on each reset
 	
 	bool update_Thread_Exit_Flag;				///< Thread exit flag for update_Thread() and update()
-	
+	bool button_Flag;
+
 	/**
 	 * @brief updates all of the values for each of the objects on screen
 	 * 

@@ -26,7 +26,7 @@ protected:
 
 	CControl _base;		///< CControl class used to handle I/O from the boosterpack
 	cv::Mat _canvas;	///< openCV object 
-	
+
 	/**
 	* @brief	Pure virtual member of parent class
 	* @param	none

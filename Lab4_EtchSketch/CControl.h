@@ -72,7 +72,7 @@ bool get_analog(int type, int channel);
  * 
  * @return 	true if data was written succesfully, false if otherwise
  */
-bool get_button(int channel);
+bool get_button(int channel, bool button_Flag);
 };
 
 

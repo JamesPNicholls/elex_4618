@@ -1,7 +1,7 @@
 #pragma once
-#include "CAsteroid_Game.h"
+
 using namespace cv;
-class CGameObject : public CAsteroid_Game
+class CGameObject
 {
 protected:
 	Point2f _position;

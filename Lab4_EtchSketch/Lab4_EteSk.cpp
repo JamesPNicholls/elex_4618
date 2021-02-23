@@ -25,10 +25,10 @@
 #include "CControl.h"
 #include "CAsteroid_Game.h"
 
-
 using namespace std;
 int main(int argc, char* argv[])
 {
+	CAsteroid_Game test;
 	char cmd;
 	do
 	{
@@ -62,7 +62,9 @@ int main(int argc, char* argv[])
 		{
 			cout << "...Lab 6 is a work in process" << endl << endl;;
 			CAsteroid_Game asteroid;
+			
 			asteroid.run();
+
 			break;
 		}
 			

@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "CControl.h"
 
+
 #define ETCH_CANVAS_WIDTH		800
 #define ETCH_CANVAS_HEIGHT		800
 

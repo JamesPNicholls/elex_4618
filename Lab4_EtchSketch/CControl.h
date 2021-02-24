@@ -15,6 +15,7 @@ class CControl
 {
 private:
 	Serial _com;
+	bool button_Flag;
 public:
 
 	CControl();

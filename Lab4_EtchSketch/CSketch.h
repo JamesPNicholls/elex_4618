@@ -2,6 +2,11 @@
 #include "stdafx.h"
 #include "CBase4618.h"
 
+#define CANVAS_W_DRAW		1100
+#define CANVAS_H_DRAW		1100
+
+#define DRAW_CANVAS_OFFSET	150
+
 /**
  * @brief	Child class of CBase4618, inherits the draw() and update() virutal prototypes, makes an ektch-e-sketch
  *

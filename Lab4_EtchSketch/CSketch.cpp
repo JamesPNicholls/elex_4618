@@ -16,8 +16,8 @@ CSketch::CSketch(cv::Size _Size, int commPort_Num) : CBase4618()
 	_base.init_com(commPort_Num);
 	init_RGB_LED();
 
-	current_XY_Cords.x = new_XY_Cords.x = CANVAS_WIDTH / 2;
-	current_XY_Cords.x = new_XY_Cords.y = CANVAS_WIDTH / 2;
+	current_XY_Cords.x = new_XY_Cords.x = ETCH_CANVAS_WIDTH / 2;
+	current_XY_Cords.x = new_XY_Cords.y = ETCH_CANVAS_WIDTH / 2;
 }
 
 CSketch::~CSketch()
@@ -66,32 +66,32 @@ void CSketch::update()
 
 	// In order to reach the corners of the screen the joy stick is mapped to a region that is larger than the space on _canvas
 	// It than checks to make sure that coordinates are within the drawing space and wont allow them to go off screen.
-	new_XY_Cords.x = ((float)new_XY_Cords.x / analog_Convesion_Factor * CANVAS_W_DRAW) - DRAW_CANVAS_OFFSET;
-	new_XY_Cords.y = CANVAS_H_DRAW - ((float)new_XY_Cords.y / analog_Convesion_Factor * CANVAS_H_DRAW) - DRAW_CANVAS_OFFSET;
+	new_XY_Cords.x = new_XY_Cords.x * CANVAS_W_DRAW / analog_Convesion_Factor  - DRAW_CANVAS_OFFSET;
+	new_XY_Cords.y = CANVAS_H_DRAW - (new_XY_Cords.y * CANVAS_H_DRAW / analog_Convesion_Factor ) - DRAW_CANVAS_OFFSET;
 
 	if (new_XY_Cords.x < 0)
 	{
 		new_XY_Cords.x = 0;
 	}
-	else if (new_XY_Cords.x > CANVAS_WIDTH)
+	else if (new_XY_Cords.x > ETCH_CANVAS_WIDTH)
 	{
-		new_XY_Cords.x = CANVAS_WIDTH;
+		new_XY_Cords.x = ETCH_CANVAS_WIDTH;
 	}
 
 	if (new_XY_Cords.y < 0)
 	{
 		new_XY_Cords.y = 0;
 	}
-	else if (new_XY_Cords.y > (CANVAS_HEIGHT))
+	else if (new_XY_Cords.y > (ETCH_CANVAS_HEIGHT))
 	{
-		new_XY_Cords.y = CANVAS_HEIGHT;
+		new_XY_Cords.y = ETCH_CANVAS_HEIGHT;
 	}
 
 	//Clears the screen if PB1 is pushed
 	is_Button_Pushed = _base.get_button(push_Button1);
 	if (is_Button_Pushed)
 	{
-		_canvas = cv::Mat::zeros(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), CV_8UC3);
+		_canvas = cv::Scalar(0, 0, 0);
 	}
 }
 

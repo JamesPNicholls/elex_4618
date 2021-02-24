@@ -19,9 +19,12 @@
 //Student defined classes
 //	Inherited classed need to be included in the main
 //	The base class is excluded as it is included in each of the child classes
+#include "CBase4618.h"
 #include "CPong.h"
 #include "CSketch.h"
 #include "CControl.h"
+//#include "CAsteroid_Game.h" //for lab 6
+
 
 using namespace std;
 int main(int argc, char* argv[])
@@ -34,27 +37,41 @@ int main(int argc, char* argv[])
 		cout << "****************" << endl;
 		cout << " (4), Etch-e-Sketch" << endl;
 		cout << " (5), Pong" << endl;
-		cout << ">" << endl;
+		cout << " (6), Asteroids" << endl;
+		cout << " >>";
 		cin >> cmd;
 
 		switch (cmd)
 		{
-		case '4':
+		case '4': 
 		{
-			CSketch sketch(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			cout << "...Running lab 4, Etch-E-Sketch" << endl << endl;
+			CSketch sketch(cv::Size(ETCH_CANVAS_WIDTH, ETCH_CANVAS_HEIGHT), COM_PORT);
 			sketch.run();
 			break;
 		}
 		case '5':
 		{
-			CPong pong(cv::Size(CANVAS_WIDTH, CANVAS_HEIGHT), COM_PORT);
+			cout << "...Running lab 5, Pong" << endl << endl;
+			CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
 			pong.run();
+			pong.~CPong();
 			break;
 		}
 
-
+		case '6':
+		{
+			cout << "...Lab 6 is a work in process" << endl << endl;;
+			//CAsteroid_Game asteroid;
+			//asteroid.run();
+			break;
+		}
+			
 		case 'q':
 			return 0;
+
+		default:
+			cout << "Invalid..." << endl << endl;
 		}
 	} while (1);
 }

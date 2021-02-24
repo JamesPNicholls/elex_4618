@@ -160,7 +160,7 @@ void CAsteroid_Game::draw()
 		while (waitKey(1) < 0)
 		{
 		};
-		//make a reset fnc
+		game_Over_Flag = false;
 		
 	}
 

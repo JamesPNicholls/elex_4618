@@ -158,7 +158,6 @@ bool CControl::get_data_poll(int type, int channel)
     {
         if (get_data(type, channel, result))
         {
-            cout << "Push Button #1: " << result << endl;
             set_data(digital, RGBLED_BLU_PIN, !result);
         }
         else

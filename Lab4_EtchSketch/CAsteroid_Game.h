@@ -34,10 +34,15 @@ private:
 	void update();
 	void draw();
 
-	//vector <CAsteroid>	asteroid_Vector;
-	//vector <CMissle>	missle_Vector;
+	vector <CAsteroid>	asteroid_Vector;
+	vector <CMissle>	missle_Vector;
 
-	CShip test;
+	CShip _ship;
+
+	int score;
+	bool button_Flag;
+	bool game_Over_Flag;
+
 
 public:
 	CAsteroid_Game();

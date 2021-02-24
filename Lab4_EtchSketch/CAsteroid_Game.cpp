@@ -165,7 +165,6 @@ void CAsteroid_Game::draw()
 
 		cv::imshow("_canvas", _canvas);
 	}
-
 }
 
 void CAsteroid_Game::reset_Game()
@@ -181,7 +180,7 @@ void CAsteroid_Game::reset_Game()
 	putText(_canvas, "Press any key to Start... ", Point2f(300, 500), cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
 	cv::imshow("_canvas", _canvas);
 
-	waitKey(0);
+	waitKey(0);//wait for the user to press a key
 }
 
 

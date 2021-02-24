@@ -30,6 +30,7 @@ bool CGameObject::collide(CGameObject& obj)
 		result = true;
 		std::cout << "hit\n";
 	}
+
 	return result;
 }
 bool CGameObject::collide_wall(Size board)

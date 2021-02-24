@@ -21,15 +21,14 @@ CAsteroid_Game::~CAsteroid_Game()
 
 void CAsteroid_Game::update()
 {
-	////update postion of Asteroids
-
+	//Make a new asteroid
 	if (rand() % 2 == 1)
 	{
 		CAsteroid new_Astro;
 		asteroid_Vector.push_back(new_Astro);
 	}
 	
-	int i = 0;
+	int i = 0;//Index make sure I dont access an invalid vector element
 	for (auto& asteroid_it : asteroid_Vector)//iterate through the asteroid vector
 	{
 		//update position of the vector
@@ -41,11 +40,10 @@ void CAsteroid_Game::update()
 			{
 				break;
 			}
-			asteroid_Vector.erase(asteroid_Vector.begin() + i);
+			asteroid_Vector.erase(asteroid_Vector.begin() + i); //delete the asteroid when it hits the wall
 		}
-		
-		//Checks to see if the ship collides with an asteroid
-		if (asteroid_it.collide(_ship))
+				
+		if (asteroid_it.collide(_ship))//Checks for ship collision
 		{
 			//decrement the life count if hit
 			_ship.set_lives(_ship.get_lives() - 1);
@@ -59,13 +57,13 @@ void CAsteroid_Game::update()
 	}
 
 	int j = 0;
-	for (auto& missle_it : missle_Vector)//iterate through the middle vector
+	for (auto& missle_it : missle_Vector)//iterate through the missle vector
 	{
 		//update missle position
 		missle_it.move();
 	
 		int i = 0;
-		for (auto& asteroid_it : asteroid_Vector)
+		for (auto& asteroid_it : asteroid_Vector)//iterate through the asteroid_vector
 		{
 			if (asteroid_it.collide(missle_it))	//Checks to see if the missle collides with an asteroid
 			{
@@ -87,7 +85,7 @@ void CAsteroid_Game::update()
 			i++;
 		}
 
-		if (missle_it.collide_wall(_canvas.size()))
+		if (missle_it.collide_wall(_canvas.size()))//check for wall collision
 		{
 			if (j >= missle_Vector.size())
 			{
@@ -131,27 +129,31 @@ void CAsteroid_Game::update()
 
 void CAsteroid_Game::draw()
 {	
-	if (game_Over_Flag == true)
+	if (game_Over_Flag == true)//print game over screen
 	{
 		_canvas = Scalar(0, 0, 0);
 		putText(_canvas, "GAME OVER", Point(125, 450), FONT_HERSHEY_SIMPLEX, 4.0, Scalar(0, 0, 200), 3);
-		cv::imshow("_canvas", _canvas);
+		
+		imshow("_canvas", _canvas);
 
 		waitKey(0);
-		reset_Game();
+		reset_Game(); //go to the reset screen
 	}
 	else
 	{
-		_canvas = CV_RGB(0, 0, 0); //Clear the screen
+		//Clear the screen
+		_canvas = CV_RGB(0, 0, 0); 
 
+		//draw the ship
 		_ship.draw(_canvas);
 
-		//Iterates through the vector, stolen from stackoverflow
+		//draw each asteroid
 		for (auto& asteroid_it : asteroid_Vector)
 		{
 			asteroid_it.draw(_canvas);
 		}
 
+		//draw each missle
 		for (auto& missle_it : missle_Vector)
 		{
 			missle_it.draw(_canvas);
@@ -163,7 +165,7 @@ void CAsteroid_Game::draw()
 		//Lives
 		putText(_canvas, "Lives: " + to_string(_ship.get_lives()), Point2f(600, 50), cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
 
-		cv::imshow("_canvas", _canvas);
+		imshow("_canvas", _canvas);
 	}
 }
 
@@ -178,8 +180,8 @@ void CAsteroid_Game::reset_Game()
 	_canvas = Scalar(0, 0, 0);
 	putText(_canvas, "...ASTEROIDS...", Point2f(50, 450), cv::FONT_HERSHEY_SIMPLEX, 4, Scalar(255, 255, 255), 2);
 	putText(_canvas, "Press any key to Start... ", Point2f(300, 500), cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
-	cv::imshow("_canvas", _canvas);
-
+	
+	imshow("_canvas", _canvas);
 	waitKey(0);//wait for the user to press a key
 }
 

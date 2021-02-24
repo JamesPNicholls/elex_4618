@@ -48,5 +48,8 @@ public:
 	CAsteroid_Game();
 	CAsteroid_Game(cv::Size _size, int comPort_Num);
 	~CAsteroid_Game();
+
+	void reset_Game();
+
 	void run();
 };

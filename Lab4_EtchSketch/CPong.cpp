@@ -101,7 +101,14 @@ void CPong::update()
 	}
 	_Ball.old_Time = cv::getTickCount();
 
-
+	if (_canvas_Screen_Params.l_Score == 5 || _canvas_Screen_Params.r_Score == 5)
+	{
+		reset_Screen_Parameters();
+		_Ball.ball_Vel = vel_Gen();
+		_canvas_Screen_Params.l_Score = 0;
+		_canvas_Screen_Params.r_Score = 0;
+		return;
+	}
 
 	//Update the Left Paddles Y position
 	cv::Point temp = { 0,0 };
@@ -144,14 +151,14 @@ void CPong::update()
 	}
 
 	//Reset the game if PB1 is pushed
-	if (_base.get_button(push_Button1, button_Flag))	//Get button is super slow like 20ms slow idk why yet
+	if (_base.get_button(push_Button1, button_Flag) == true)	//Get button is super slow like 20ms slow idk why yet
 	{
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
+		_canvas_Screen_Params.l_Score = 1;
+		_canvas_Screen_Params.r_Score = 0;
 	}
-	
-	update_Thread_Exit_Flag = true; //thread flag gets set
-}//void CPong::update()
+}//void CPong::update
 
 cv::Point CPong::vel_Gen()
 {
@@ -183,94 +190,110 @@ cv::Point CPong::vel_Gen()
 }//cv::Point CPong::vel_Gen()
 
 void CPong::draw()
-{
-	//Clear the screen and draws everything after update() has run	
-	_canvas = black_Canvas; 
+{	
+		long int freq_t, end_t, start_t;
+		freq_t = cv::getTickFrequency();
 
-	//Vertical Center Line
-	cv::line(		_canvas,
-					cv::Point(LINE_CENTER, 0),
-					cv::Point(LINE_CENTER, PONG_CANVAS_HEIGHT),
-					cv::Scalar(255, 255, 255));
+		auto start = system_clock::now();
+		auto end = start + milliseconds(5); //30 Hz
 
-	//Left Paddle
-	cv::rectangle(	_canvas,
-					left_Paddle_Params.pl_rectangle,
-					left_Paddle_Params.paddle_Colour,
-					cv::FILLED);
+		//Clear the screen and draws everything after update() has run	
+		_canvas = black_Canvas;
+		cv::imshow("_canvas", _canvas);
 
-	
-	//Right Paddle
-	cv::rectangle(	_canvas,
-					right_Paddle_Params.pl_Hit_Box, 	//<-hit box testing
-					//right_Paddle_Params.pl_rectangle,					
-					cv::Scalar(100,0,0),
-					cv::FILLED);
+		//Vertical Center Line
+		cv::line(_canvas,
+			cv::Point(LINE_CENTER, 0),
+			cv::Point(LINE_CENTER, PONG_CANVAS_HEIGHT),
+			cv::Scalar(255, 255, 255));
 
-	//Da Ball
-	cv::circle(		_canvas,
-					_Ball.ball_Cords,
-					BALL_RADIUS,
-					cv::Scalar(255, 255, 255),
-					cv::FILLED);
-	
-	//Left Player Score
-	cv::putText(	_canvas,
-					_canvas_Screen_Params.player_L_str,
-					_canvas_Screen_Params.player_L_Point,
-					cv::FONT_HERSHEY_SIMPLEX,
-					1.0,
-					cv::Scalar(255, 255, 255),
-					2);
+		//Left Paddle
+		cv::rectangle(_canvas,
+			left_Paddle_Params.pl_rectangle,
+			left_Paddle_Params.paddle_Colour,
+			cv::FILLED);
 
-	//Right Player Score 
-	cv::putText(	_canvas,
-					_canvas_Screen_Params.player_R_str,
-					_canvas_Screen_Params.player_R_Point,
-					cv::FONT_HERSHEY_SIMPLEX,
-					1.0,
-					cv::Scalar(255, 255, 255), 
-					2);
-	
-	//FPS
-	cv::putText(	_canvas,
-					std::to_string(_canvas_Screen_Params.FPS),
-					_canvas_Screen_Params.fps_Point,
-					cv::FONT_HERSHEY_SIMPLEX,
-					1.0,
-					cv::Scalar(255, 255, 255),
-					2);
 
-	cv::imshow("_canvas", _canvas);
+		//Right Paddle
+		cv::rectangle(_canvas,
+			//right_Paddle_Params.pl_Hit_Box, 	//<-hit box testing
+			right_Paddle_Params.pl_rectangle,
+			cv::Scalar(100, 0, 0),
+			cv::FILLED);
+
+		//Da Ball
+		cv::circle(_canvas,
+			_Ball.ball_Cords,
+			BALL_RADIUS,
+			cv::Scalar(255, 255, 255),
+			cv::FILLED);
+
+		//Left Player Score
+		cv::putText(_canvas,
+			_canvas_Screen_Params.player_L_str,
+			_canvas_Screen_Params.player_L_Point,
+			cv::FONT_HERSHEY_SIMPLEX,
+			1.0,
+			cv::Scalar(255, 255, 255),
+			2);
+
+		//Right Player Score 
+		cv::putText(_canvas,
+			_canvas_Screen_Params.player_R_str,
+			_canvas_Screen_Params.player_R_Point,
+			cv::FONT_HERSHEY_SIMPLEX,
+			1.0,
+			cv::Scalar(255, 255, 255),
+			2);
+
+		//FPS
+		cv::putText(_canvas,
+			std::to_string(_canvas_Screen_Params.FPS),
+			_canvas_Screen_Params.fps_Point,
+			cv::FONT_HERSHEY_SIMPLEX,
+			1.0,
+			cv::Scalar(255, 255, 255),
+			2);
+
+		
+		cv::imshow("_canvas", _canvas);
+		std::this_thread::sleep_until(end);		
+		start_t = start.time_since_epoch().count(); //Converts the std::chrono time_point into a usable integer;
+		end_t = end.time_since_epoch().count();
+		_canvas_Screen_Params.FPS = freq_t / (end_t - start_t);
+
+		if (cv::waitKey(1) == 'q')
+		{
+			exit_Flag = true;
+		}
+
 }//void CPong::draw()
 
 void CPong::run()
 {
-	long int freq_t, end_t, start_t;
-	freq_t = cv::getTickFrequency();
-	while (cv::waitKey(1) != 'q')
+	update_Thread_Exit_Flag = false; //thread flag gets set
+	draw_Thread_Exit_Flag = false;
+	exit_Flag = false;
+
+	start_Thread();//completes update() and draw() threads
+	while (exit_Flag == false)
 	{
-		auto start = system_clock::now();
-		auto end = start + milliseconds(33); //30 Hz	
-		
-		start_Thread();//completes update() using m;ultithreading
-		draw();
-		std::this_thread::sleep_until(end);
-
-		start_t = start.time_since_epoch().count(); //Converts the std::chrono time_point into a usable integer;
-		end_t = end.time_since_epoch().count();
-
-		_canvas_Screen_Params.FPS = freq_t / (end_t - start_t);
 	}
+
+	draw_Thread_Exit_Flag = true;
+	update_Thread_Exit_Flag = true;
+
+	std::this_thread::sleep_for(std::chrono::microseconds(300));
 }//void CPong::run()
 
 void CPong::start_Thread()
 {	
 	std::thread t1(&CPong::update_Thread, this);
+	std::thread t2(&CPong::draw_Thread, this);
+	
 	t1.detach();
+	t2.detach();
 }
-
-
 
 void CPong::update_Thread(CPong* ptr)
 {
@@ -278,5 +301,12 @@ void CPong::update_Thread(CPong* ptr)
 	{
 		ptr->update();
 	}
-	ptr->update_Thread_Exit_Flag = false; //clear the flag
+}
+
+void CPong::draw_Thread(CPong* ptr)
+{
+	while (ptr->draw_Thread_Exit_Flag == false)
+	{
+		ptr->draw();
+	}
 }

@@ -104,7 +104,6 @@ bool CControl::get_analog(int type, int channel)
     {
         return false;
     }
-  
 
     return true;
 }
@@ -128,7 +127,6 @@ bool CControl::get_button(int channel, bool button_Flag)
     int result;
     if (get_data(digital, channel, result))
     {
-        cout << result << endl;
         if (result == 0)
         {
             cv::waitKey(3);

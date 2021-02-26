@@ -202,9 +202,9 @@ void CPong::draw()
 	
 	//Right Paddle
 	cv::rectangle(	_canvas,
-					//right_Paddle_Params.pl_Hit_Box, 	<-hit box testing
-					right_Paddle_Params.pl_rectangle,					
-					right_Paddle_Params.paddle_Colour,
+					right_Paddle_Params.pl_Hit_Box, 	//<-hit box testing
+					//right_Paddle_Params.pl_rectangle,					
+					cv::Scalar(100,0,0),
 					cv::FILLED);
 
 	//Da Ball

@@ -1,0 +1,10 @@
+-lpigpio
+`pkg-config --libs opencv`
+-lrt
+-lpthread
+
+/usr/include/pigpio.h
+/usr/include/pigpiod_if.h
+/usr/include/pigpiod_if2.h
+
+`pkg-config --clfags opencv`

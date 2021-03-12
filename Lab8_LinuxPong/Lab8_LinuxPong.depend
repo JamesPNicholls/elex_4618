@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1615498074 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
+	"CControl.h"
+	<string>
+	<iomanip>
+
+1615497505 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
+	<opencv2/opencv.hpp>
+

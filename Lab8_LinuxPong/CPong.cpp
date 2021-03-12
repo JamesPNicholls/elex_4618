@@ -103,7 +103,7 @@ void CPong::update()
 
 	//Update the Left Paddles Y position
 	cv::Point temp = { 0,0 };
-	_base.get_data(analog, joyStick_Y, temp.y);
+	_base.get_data(analog, 144, temp.y);
 
 	temp.y = temp.y * PONG_CANVAS_HEIGHT / analog_Convesion_Factor; // Scales the joy stick to fit the screen
 
@@ -270,8 +270,6 @@ void CPong::start_Thread()
 	std::thread t1(&CPong::update_Thread, this);
 	t1.join();
 }
-
-
 
 void CPong::update_Thread(CPong* ptr)
 {

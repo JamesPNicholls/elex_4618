@@ -189,7 +189,7 @@ void CControl::print_New_Menu()
     std::cout << "\n(3) Digital Button + Debounce";
     std::cout << "\n(4) Servo Swing";
     std::cout << "\n(5) Pong Port";
-    std::cout << "\n(q) Exit";
+    std::cout << "\n(0) Exit";
     std::cout << "\nCMD> ";
 }
 

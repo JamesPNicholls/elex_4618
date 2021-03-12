@@ -33,19 +33,20 @@ int main()
             case '2': passed = demo.get_data_poll(digital, push_Button1); break;
             case '3': passed = demo.get_button(push_Button1);              break;
             case '4': passed = demo.set_servo();                          break;
-            case '6':
+            case '5':
                 {
                     CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), 0);
                     pong.run();
+                    cv::destroyAllWindows();
                     break;
                 }
-            case 'q':
+            case '0':
                 gpioTerminate();
                 return 0;
                 break;
 
             }
-        }while(cmd != 'q');
+        }while(cmd != '0');
 
 
 

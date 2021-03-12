@@ -39,7 +39,7 @@
 1614970193 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.cpp
 	"stdafx.h"
 
-1615533350 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
+1615534603 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
 	"stdafx.h"
 	"CControl.h"
 	<string>

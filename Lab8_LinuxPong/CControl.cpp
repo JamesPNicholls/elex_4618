@@ -43,7 +43,6 @@ bool CControl::get_data (int type, int channel, int& result)
                 channel = 26;
                 break;
         }
-        cout << channel;
         result = gpioRead(channel);
 
         state = true;
@@ -59,7 +58,6 @@ bool CControl::get_data (int type, int channel, int& result)
         result = ((inBuf[1] & 3) << 8) | inBuf[2]; // Format 10 bits
         spiClose(handle); // Close SPI system
 
-        cout << result;
         state = true;
     }
 
@@ -76,30 +74,32 @@ bool CControl::get_analog(int type, int channel)
     float y_percent;
 
     cout << fixed;
-
-    if (get_data(type, joyStick_X, x_result))
+    uint32_t start_Time = gpioTick();
+    do
     {
-        x_percent = (float)x_result / analog_Convesion_Factor * percentile_Factor;
-        cout << "X: " << setw(4) << x_result;
-        cout << setw(4) << setprecision(1) << "(" << x_percent << "%)";
-    }
-    else
-    {
-        return false;
-    }
+        if (get_data(type, 128, x_result))
+        {
+            x_percent = (float)x_result / analog_Convesion_Factor * percentile_Factor;
+            cout << "X: " << setw(4) << x_result;
+            cout << setw(4) << setprecision(1) << "(" << x_percent << "%)";
+        }
+        else
+        {
+            return false;
+        }
 
 
-    if (get_data(type, joyStick_Y, y_result))
-    {
-        y_percent = (float)y_result / analog_Convesion_Factor * percentile_Factor;
-        cout << "\tY: " << setw(4) << y_result;
-        cout << setw(4) << setprecision(1) << "(" << y_percent << "%)" << endl;
-    }
-    else
-    {
-        return false;
-    }
-
+        if (get_data(type, 144, y_result))
+        {
+            y_percent = (float)y_result / analog_Convesion_Factor * percentile_Factor;
+            cout << "\tY: " << setw(4) << y_result;
+            cout << setw(4) << setprecision(1) << "(" << y_percent << "%)" << endl;
+        }
+        else
+        {
+            return false;
+        }
+    }while((gpioTick() - start_Time) < 10000000);
 
     return true;
 }
@@ -115,7 +115,6 @@ bool CControl::get_button(int channel)
     int result;
     if (get_data(digital, channel, result))
     {
-        cout << result << endl;
         if (result == 0)
         {
             cv::waitKey(3);
@@ -141,7 +140,8 @@ bool CControl::get_button(int channel)
 bool CControl::get_data_poll(int type, int channel)
 {
     int result = 0;
-    while (waitKey(1) < 0)
+    uint32_t start_Time = gpioTick();
+    while ((gpioTick() - start_Time) < 10000000)
     {
         if (get_data(type, channel, result))
         {
@@ -159,7 +159,9 @@ bool CControl::get_data_poll(int type, int channel)
 bool CControl::set_servo()
 {
     int servo_value = 500;
-    while (1)
+    uint32_t start_Time = gpioTick();
+
+    while ((gpioTick() - start_Time) < 2000000)
     {
         while (servo_value < 2500)
         {
@@ -179,14 +181,15 @@ bool CControl::set_servo()
 
 void CControl::print_New_Menu()
 {
-    std::cout << "\n****************************************";
-    std::cout << "\n* ELEX4618 Lab 3-ESC, By James Nicholls";
-    std::cout << "\n*****************************************";
+    std::cout << "\n**********************************************";
+    std::cout << "\n* ELEX4618 Lab 8-Linux Port, By James Nicholls";
+    std::cout << "\n**********************************************";
     std::cout << "\n(1) Analog Joy Stick";
     std::cout << "\n(2) Digital Button";
     std::cout << "\n(3) Digital Button + Debounce";
     std::cout << "\n(4) Servo Swing";
-    std::cout << "\n(0) Exit";
+    std::cout << "\n(5) Pong Port";
+    std::cout << "\n(q) Exit";
     std::cout << "\nCMD> ";
 }
 

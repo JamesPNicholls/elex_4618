@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
     int result = 0;
-    int cmd = 0;
+    char cmd = 0;
     bool passed = false;
 
     if(gpioInitialise() < 0)
@@ -29,25 +29,29 @@ int main()
 
             switch(cmd)
             {
-            case 1: passed = demo.get_analog(analog, joyStick_X);       break;
-            case 2: passed = demo.get_data_poll(digital, push_Button1); break;
-            case 3: passed = demo.get_button(push_Button1);                         break;
-            case 4: passed = demo.set_servo();                          break;
-            case 5:
+            case '1': passed = demo.get_analog(analog, joyStick_X);       break;
+            case '2': passed = demo.get_data_poll(digital, push_Button1); break;
+            case '3': passed = demo.get_button(push_Button1);              break;
+            case '4': passed = demo.set_servo();                          break;
+            case '6':
                 {
                     CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), 0);
                     pong.run();
                     break;
                 }
+            case 'q':
+                gpioTerminate();
+                return 0;
+                break;
 
             }
-        }while(1);
+        }while(cmd != 'q');
 
 
 
 
 
     }
-    gpioTerminate();
+
 }
 

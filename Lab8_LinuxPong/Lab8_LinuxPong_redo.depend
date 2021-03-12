@@ -6,7 +6,7 @@
 	"stdafx.h"
 	"CControl.h"
 
-1615501933 /home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.h
+1615533606 /home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.h
 	<opencv2/opencv.hpp>
 	<opencv2/calib3d.hpp>
 	<opencv2/imgproc.hpp>
@@ -14,7 +14,7 @@
 	<opencv2/aruco.hpp>
 	<pigpio.h>
 
-1615528808 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
+1615533559 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
 
 1615499805 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CPong.cpp
 	"stdafx.h"
@@ -27,7 +27,7 @@
 	"stdafx.h"
 	"CBase4618.h"
 
-1615530565 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/Lab8_LinuxPong.cpp
+1615533839 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/Lab8_LinuxPong.cpp
 	"stdafx.h"
 	<iostream>
 	<pigpio.h>
@@ -39,7 +39,7 @@
 1614970193 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.cpp
 	"stdafx.h"
 
-1615529672 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
+1615533350 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
 	"stdafx.h"
 	"CControl.h"
 	<string>

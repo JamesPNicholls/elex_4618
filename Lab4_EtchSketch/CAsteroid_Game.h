@@ -67,7 +67,8 @@ private:
 	 * False = continue
 	 */
 	bool game_Over_Flag;
-
+	bool reset_Flag;
+	bool quit_Flag;
 
 public:
 	/**

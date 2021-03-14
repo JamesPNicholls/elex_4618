@@ -28,7 +28,7 @@ void CAsteroid_Game::update()
 		asteroid_Vector.push_back(new_Astro);
 	}
 	
-	int i = 0;//Index make sure I dont access an invalid vector element
+	int i = 0;// This index is used to prevent a memory leak when deleting vector elements
 	for (auto& asteroid_it : asteroid_Vector)//iterate through the asteroid vector
 	{
 		//update position of the vector
@@ -36,7 +36,7 @@ void CAsteroid_Game::update()
 
 		if (asteroid_it.collide_wall(_canvas.size()))//Check for wall collision
 		{
-			if (i >= asteroid_Vector.size())
+			if (i >= asteroid_Vector.size())// If the index if greater than the size of the vector break 
 			{
 				break;
 			}
@@ -94,7 +94,6 @@ void CAsteroid_Game::update()
 			missle_Vector.erase(missle_Vector.begin() + j);//delete missle as well
 		}
 		j++;
-		cout << j << "\n";
 	}
 
 	//Shoot a new missle
@@ -108,7 +107,7 @@ void CAsteroid_Game::update()
 	//Reset the game
 	if (_base.get_button(push_Button2, button_Flag))
 	{
-		reset_Game();
+		reset_Flag = true;
 	}
 
 	//Update the ship position
@@ -122,6 +121,7 @@ void CAsteroid_Game::update()
 	//Check for game over
 	if (_ship.get_lives() == 0)
 	{
+		reset_Flag = true;
 		game_Over_Flag = true;
 	}
 
@@ -129,15 +129,20 @@ void CAsteroid_Game::update()
 
 void CAsteroid_Game::draw()
 {	
-	if (game_Over_Flag == true)//print game over screen
+	
+	if (reset_Flag == true)
 	{
-		_canvas = Scalar(0, 0, 0);
-		putText(_canvas, "GAME OVER", Point(125, 450), FONT_HERSHEY_SIMPLEX, 4.0, Scalar(0, 0, 200), 3);
-		
-		imshow("_canvas", _canvas);
+		if (game_Over_Flag == true)//print game over screen
+		{
+			_canvas = Scalar(0, 0, 0);
+			putText(_canvas, "GAME OVER", Point(125, 450), FONT_HERSHEY_SIMPLEX, 4.0, Scalar(0, 0, 200), 3);
 
-		waitKey(0);
-		reset_Game(); //go to the reset screen
+			imshow("_canvas", _canvas);
+
+			waitKey(0);
+			reset_Game(); //go to the reset screen
+		}
+		reset_Game();
 	}
 	else
 	{
@@ -164,8 +169,13 @@ void CAsteroid_Game::draw()
 
 		//Lives
 		putText(_canvas, "Lives: " + to_string(_ship.get_lives()), Point2f(600, 50), cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
+	}
+	
+	imshow("_canvas", _canvas);
 
-		imshow("_canvas", _canvas);
+	if (waitKey(1) == 'q')
+	{
+		quit_Flag = true;
 	}
 }
 
@@ -175,21 +185,21 @@ void CAsteroid_Game::reset_Game()
 	score = 0;
 	asteroid_Vector.clear();
 	missle_Vector.clear();
-	game_Over_Flag = false;
-	
+
+	game_Over_Flag = false;	
+	reset_Flag = false;
+
 	_canvas = Scalar(0, 0, 0);
 	putText(_canvas, "...ASTEROIDS...", Point2f(50, 450), cv::FONT_HERSHEY_SIMPLEX, 4, Scalar(255, 255, 255), 2);
 	putText(_canvas, "Press any key to Start... ", Point2f(300, 500), cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
-	
-	imshow("_canvas", _canvas);
-	waitKey(0);//wait for the user to press a key
 }
 
 
 void CAsteroid_Game::run()
 {
+	quit_Flag = false;
 	reset_Game();
-	while (cv::waitKey(1) != 'q')
+	while (!quit_Flag)
 	{
 		update();
 		draw();

@@ -2,11 +2,15 @@
 #include "stdafx.h"
 #include "CControl.h"
 
+
 #define ETCH_CANVAS_WIDTH		800
 #define ETCH_CANVAS_HEIGHT		800
 
 #define PONG_CANVAS_WIDTH		1000
 #define PONG_CANVAS_HEIGHT		800
+
+#define ASTEROID_CANVAS_WIDTH	1000
+#define ASTEROID_CANVAS_HEIGHT	1000
 
 #define COM_PORT		3
 
@@ -26,7 +30,7 @@ protected:
 
 	CControl _base;		///< CControl class used to handle I/O from the boosterpack
 	cv::Mat _canvas;	///< openCV object 
-	
+
 	/**
 	* @brief	Pure virtual member of parent class
 	* @param	none

@@ -102,7 +102,10 @@ private:
 	const cv::Scalar black_Canvas = { 0,0,0 };	///< Blank canvas to clear the screen on each reset
 	
 	bool update_Thread_Exit_Flag;				///< Thread exit flag for update_Thread() and update()
-	
+	bool draw_Thread_Exit_Flag;
+	bool button_Flag;
+	bool exit_Flag;
+
 	/**
 	 * @brief updates all of the values for each of the objects on screen
 	 * 
@@ -135,6 +138,7 @@ private:
 	 * @param ptr the type CPong pong that contains the members fns and variable
 	 */
 	static void update_Thread(CPong* ptr);
+	static void draw_Thread(CPong* ptr);
 
 public:
 

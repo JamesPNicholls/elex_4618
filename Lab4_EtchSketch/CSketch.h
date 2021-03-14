@@ -39,6 +39,7 @@ private:
 	cv::Scalar current_Colour = { 255, 0, 0 };	///< Used to keep track of the current colour to be drawn onto _canvas
 	cv::Point new_XY_Cords;						///< First of two co-ordinates used in cv::line() in draw();
 	cv::Point current_XY_Cords;					///< Second of two co-ordinates used in cv::line() in draw();
+	bool button_Flag;
 
 public:
 

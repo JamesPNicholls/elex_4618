@@ -151,18 +151,27 @@ void CPong::update()
 	}
 
 	//Reset the game if PB1 is pushed
+<<<<<<< HEAD
 	if (_base.get_button(push_Button1, button_Flag) == true)	//Get button is super slow like 20ms slow idk why yet
+=======
+	
+	if (_base.get_button(push_Button1))	//Get button is super slow like 20ms slow idk why yet
+>>>>>>> 917eb1ada7266ed2295a303856e35628ec81e591
 	{
 		reset_Screen_Parameters();
 		_Ball.ball_Vel = vel_Gen();
 		_canvas_Screen_Params.l_Score = 1;
 		_canvas_Screen_Params.r_Score = 0;
 	}
+<<<<<<< HEAD
+}//void CPong::update
+=======
 
 
 	
 	update_Thread_Exit_Flag = true; //thread flag gets set
 }//void CPong::update()
+>>>>>>> 917eb1ada7266ed2295a303856e35628ec81e591
 
 cv::Point CPong::vel_Gen()
 {

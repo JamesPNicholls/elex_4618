@@ -18,15 +18,15 @@
 
 //Student defined classes
 //	Inherited classed need to be included in the main
-//	The base class is excluded as it is included in each of the child classes
-#include "CBase4618.h"
-#include "CPong.h"
-#include "CSketch.h"
 #include "CControl.h"
-//#include "CAsteroid_Game.h" //for lab 6
+#include "CSketch.h"
+#include "CPong.h"
+#include "CAsteroid_Game.h"
+
 
 
 using namespace std;
+
 int main(int argc, char* argv[])
 {
 	char cmd;
@@ -62,8 +62,8 @@ int main(int argc, char* argv[])
 		case '6':
 		{
 			cout << "...Lab 6 is a work in process" << endl << endl;;
-			//CAsteroid_Game asteroid;
-			//asteroid.run();
+			CAsteroid_Game asteroid( cv::Size(ASTEROID_CANVAS_WIDTH, ASTEROID_CANVAS_HEIGHT), COM_PORT);			
+			asteroid.run();
 			break;
 		}
 			
@@ -73,5 +73,6 @@ int main(int argc, char* argv[])
 		default:
 			cout << "Invalid..." << endl << endl;
 		}
+		cv::destroyAllWindows();
 	} while (1);
 }

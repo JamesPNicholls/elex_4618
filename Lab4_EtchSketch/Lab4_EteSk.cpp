@@ -3,7 +3,6 @@
 // Created Oct 5, 2016 by Craig Hennessey
 // Last updated December 30, 2020
 ////////////////////////////////////////////////////////////////
-#pragma once
 #include "stdafx.h"
 
 #include <string>
@@ -56,6 +55,7 @@ int main(int argc, char* argv[])
 			cout << "...Running lab 5, Pong" << endl << endl;
 			CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), COM_PORT);
 			pong.run();
+			pong.~CPong();
 			break;
 		}
 

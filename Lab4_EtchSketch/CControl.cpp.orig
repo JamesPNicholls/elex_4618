@@ -120,8 +120,13 @@ bool CControl::set_data(int type, int channel, int val)
     return true;
 }
 
+<<<<<<< HEAD
 bool CControl::get_button(int channel, bool button_Flag)
+{
+=======
+bool CControl::get_button(int channel)
 {   
+>>>>>>> 917eb1ada7266ed2295a303856e35628ec81e591
     float start = cv::getTickCount();
     int result;
     if (get_data(digital, channel, result))
@@ -131,11 +136,19 @@ bool CControl::get_button(int channel, bool button_Flag)
         {
             cv::waitKey(3);
             if (button_Flag == true)
+<<<<<<< HEAD
             {
                 return false;
             }
             else
             {
+=======
+            {
+                return false;
+            }
+            else
+            {
+>>>>>>> 917eb1ada7266ed2295a303856e35628ec81e591
                 button_Flag = true;
                 return true;
             }

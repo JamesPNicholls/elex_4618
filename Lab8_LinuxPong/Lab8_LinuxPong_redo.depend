@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1615499299 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CBase4618.cpp
+	"CBase4618.h"
+
+1615499815 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CBase4618.h
+	"stdafx.h"
+	"CControl.h"
+
+1615533606 /home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.h
+	<opencv2/opencv.hpp>
+	<opencv2/calib3d.hpp>
+	<opencv2/imgproc.hpp>
+	<opencv2/highgui.hpp>
+	<opencv2/aruco.hpp>
+	<pigpio.h>
+
+1615533559 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
+
+1615499805 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CPong.cpp
+	"stdafx.h"
+	"CPong.h"
+	<chrono>
+	<string>
+	<thread>
+
+1615500142 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CPong.h
+	"stdafx.h"
+	"CBase4618.h"
+
+1615533839 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/Lab8_LinuxPong.cpp
+	"stdafx.h"
+	<iostream>
+	<pigpio.h>
+	<opencv2/opencv.hpp>
+	"CBase4618.h"
+	"CControl.h"
+	"CPong.h"
+
+1614970193 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.cpp
+	"stdafx.h"
+
+1615534603 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
+	"stdafx.h"
+	"CControl.h"
+	<string>
+	<iomanip>
+

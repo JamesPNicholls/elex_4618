@@ -94,6 +94,7 @@
     <ClInclude Include="CBase4618.h" />
     <ClInclude Include="CControl.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CImage_Ex.h" />
     <ClInclude Include="CMissle.h" />
     <ClInclude Include="CPong.h" />
     <ClInclude Include="CShip.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="CAsteroid.cpp" />
     <ClCompile Include="CAsteroid_Game.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CImage_Ex.cpp" />
     <ClCompile Include="CMissle.cpp" />
     <ClCompile Include="CPong.cpp" />
     <ClCompile Include="CShip.cpp" />

@@ -7,6 +7,7 @@
 #include "CBase4618.h"
 #include "CControl.h"
 #include "CPong.h"
+#include "CImage_Ex.h"
 
 using namespace std;
 int main()
@@ -23,35 +24,24 @@ int main()
     {
         do
         {
-            CControl demo;
-            demo.print_New_Menu();
+            cout << "Press S to start, or Q to quit:\n >>:";
             cin >> cmd;
 
             switch(cmd)
             {
-            case '1': passed = demo.get_analog(analog, joyStick_X);       break;
-            case '2': passed = demo.get_data_poll(digital, push_Button1); break;
-            case '3': passed = demo.get_button(push_Button1);              break;
-            case '4': passed = demo.set_servo();                          break;
-            case '5':
+                case 's':
                 {
-                    CPong pong(cv::Size(PONG_CANVAS_WIDTH, PONG_CANVAS_HEIGHT), 0);
-                    pong.run();
-                    cv::destroyAllWindows();
+                    cout << "Starting Cameras\n";
+                    CImage_Ex Image_Ex;
+                    Image_Ex.run();
                     break;
                 }
-            case '0':
-                gpioTerminate();
-                return 0;
-                break;
-
+                case 'q':
+                    cout << "Ending program";
+                    gpioTerminate();
+                    return 0;
             }
         }while(cmd != '0');
-
-
-
-
-
     }
 
 }

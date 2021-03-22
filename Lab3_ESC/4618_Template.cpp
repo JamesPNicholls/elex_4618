@@ -36,6 +36,7 @@ void print_New_Menu()
     std::cout << "\n(2) Digital Button";
     std::cout << "\n(3) Digital Button + Debounce"; 
     std::cout << "\n(4) Servo Swing";
+    std::cout << "\n(5) Servo Test";
     std::cout << "\n(0) Exit";
     std::cout << "\nCMD> ";
 }
@@ -58,7 +59,8 @@ int main(int argc, char* argv[])
             case 1:  com_Passed = boosterPack.get_analog(analog, joyStick_X);       break;  //Joy Stick
             case 2:  com_Passed = boosterPack.get_data_poll(digital, push_Button1); break;  //Push Button + LED
             case 3:  com_Passed = boosterPack.get_button();                         break;  //Push Button + Debouce + Count
-            case 4:  boosterPack.set_servo();              break;  //Servo Sweep, Filler values
+            case 4:  boosterPack.set_servo();                                       break;  //Servo Sweep, Filler values
+            case 5: boosterPack.control_Servo();                                    break;  //testing left and right swing
             }
 
             if (com_Passed == false)

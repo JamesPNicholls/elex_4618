@@ -17,7 +17,7 @@ CControl::~CControl()
 
 bool CControl::init_com()
 {
-	_com.open("COM10",115200);
+	_com.open("COM3",115200);
     if (_com.is_open())
     {
         return true;
@@ -73,7 +73,7 @@ bool CControl::get_analog(int type, int channel)
     int x_result;
     
     float x_percent;
-    float y_percent;
+    float y_percent; 
 
     int test = 0;
 
@@ -119,7 +119,7 @@ bool CControl::set_data(int type, int channel, int val)
     _com.write(command_String.c_str(), command_String.length());
     Sleep(1);
 
-    return true;
+      return true;
 }
 
 bool CControl::get_button()
@@ -168,7 +168,7 @@ bool CControl::get_data_poll(int type, int channel)
 
 bool CControl::set_servo()
 {
-    int servo_value = 90;
+    int servo_value;
     get_data(servo, 0, servo_value);
     while (cv::waitKey(1) < 1)
     {
@@ -186,4 +186,27 @@ bool CControl::set_servo()
         }        
     }
     return true;
+}
+
+void CControl::control_Servo()
+{
+    char cmd = ' ';
+    int servo_Value = 0;
+    set_data(servo, 0, 89);
+    bool dir = false;
+    do
+    {
+        cv::waitKey(100);
+
+         if (dir == false )
+        {
+            dir = true;
+            set_data(servo, 0, 89);
+        }
+        else 
+        {
+            dir = false;
+            set_data(servo, 0, 110);
+        }
+    } while (1);
 }

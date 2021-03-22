@@ -14,9 +14,9 @@
 	<opencv2/aruco.hpp>
 	<pigpio.h>
 
-1615533559 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
+1615573974 /home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.h
 
-1615499805 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CPong.cpp
+1615535017 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CPong.cpp
 	"stdafx.h"
 	"CPong.h"
 	<chrono>
@@ -27,7 +27,7 @@
 	"stdafx.h"
 	"CBase4618.h"
 
-1615533839 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/Lab8_LinuxPong.cpp
+1615534978 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/Lab8_LinuxPong.cpp
 	"stdafx.h"
 	<iostream>
 	<pigpio.h>
@@ -39,7 +39,7 @@
 1614970193 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/stdafx.cpp
 	"stdafx.h"
 
-1615534603 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
+1615574207 source:/home/pi/Documents/elex_4618/Lab8_LinuxPong/CControl.cpp
 	"stdafx.h"
 	"CControl.h"
 	<string>

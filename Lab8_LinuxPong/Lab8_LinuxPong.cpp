@@ -31,7 +31,7 @@ int main()
             {
             case '1': passed = demo.get_analog(analog, joyStick_X);       break;
             case '2': passed = demo.get_data_poll(digital, push_Button1); break;
-            case '3': passed = demo.get_button(push_Button1);              break;
+            case '3':  demo.get_Button_Poll();                      break;
             case '4': passed = demo.set_servo();                          break;
             case '5':
                 {

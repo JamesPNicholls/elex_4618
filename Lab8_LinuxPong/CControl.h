@@ -78,6 +78,8 @@ bool get_button(int channel);
 bool set_servo();
 
 void print_New_Menu();
+
+void get_Button_Poll();
 };
 
 

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CControl.h"
+#include "CSorter.h"
 #include <string>
 #include <iomanip>
 
@@ -111,13 +112,14 @@ bool CControl::set_data(int type, int channel, int val)
 
 bool CControl::get_button(int channel)
 {
-    float start = cv::getTickCount();
+
+    int button = 0;
     int result;
     if (get_data(digital, channel, result))
     {
         if (result == 0)
         {
-            cv::waitKey(3);
+            gpioDelay(3000);
             if (button_Flag == true)
             {
                 return false;
@@ -141,6 +143,7 @@ bool CControl::get_data_poll(int type, int channel)
 {
     int result = 0;
     uint32_t start_Time = gpioTick();
+
     while ((gpioTick() - start_Time) < 10000000)
     {
         if (get_data(type, channel, result))
@@ -156,12 +159,12 @@ bool CControl::get_data_poll(int type, int channel)
     return true;
 }
 
-bool CControl::set_servo()
+void CControl::get_Button_Poll()
 {
-    int servo_value = 500;
-    uint32_t start_Time = gpioTick();
+    int b_count = 0;
+    uint32_t start = gpioTick();
 
-    while ((gpioTick() - start_Time) < 2000000)
+    while ((gpioTick() - start_Time) < 4000000)
     {
         while (servo_value < 2500)
         {

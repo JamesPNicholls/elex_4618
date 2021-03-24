@@ -13,7 +13,7 @@ CPong::CPong() : CBase4618()
 CPong::CPong(cv::Size _Size, int comPort_Num)
 {
 	_canvas = cv::Mat::zeros(_Size, CV_8UC3); 	//type cv::Mat object in CBase4618
-	_base.init_com(comPort_Num);				//type CControl object in CBase4618
+	//_base.init_com(comPort_Num);				//type CControl object in CBase4618
 	reset_Screen_Parameters();					//Initialize all of the parameters of the polygon structs
 	_Ball.ball_Vel = vel_Gen();					//Generates an initial velocity for the ball
 }

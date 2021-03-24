@@ -5,8 +5,8 @@
 //#include <opencv2/dnn.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
-#include <opencv2/aruco.hpp>
-#include <pigpio.h>
+//#include <opencv2/aruco.hpp>
+//#include <pigpio.h>
 
 //// OpenCV Library
 //#pragma comment(lib, ".\\opencv\\x64\\vc16\\staticlib\\ippicvmt.lib")

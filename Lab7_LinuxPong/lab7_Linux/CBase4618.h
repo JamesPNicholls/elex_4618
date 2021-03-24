@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "CControl.h"
+//#include "CControl.h"
 
 #define ETCH_CANVAS_WIDTH		800
 #define ETCH_CANVAS_HEIGHT		800
@@ -24,7 +24,7 @@ class CBase4618
 {
 protected:
 
-	CControl _base;		///< CControl class used to handle I/O from the boosterpack
+	//CControl _base;		///< CControl class used to handle I/O from the boosterpack
 	cv::Mat _canvas;	///< openCV object
 
 	/**

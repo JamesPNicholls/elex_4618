@@ -20,9 +20,9 @@ bool CControl::init_com(int com_Port_Num)
 {
     //string com_String = "COM" + to_string(com_Port_Num);
 	//_com.open(com_String, 115200);
-	gpioSetMode(19, PI_INPUT);  // PB1
-	gpioSetMode(26, PI_INPUT);  // PB2
-    gpioSetMode(21, PI_OUTPUT); //servo
+	//gpioSetMode(19, PI_INPUT);  // PB1
+	//gpioSetMode(26, PI_INPUT);  // PB2
+    //gpioSetMode(21, PI_OUTPUT); //servo
 
 
 

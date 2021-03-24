@@ -25,7 +25,7 @@ void CBase4618::init_RGB_LED()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		_base.set_data(digital, RGBLED_OFFSET + i, RGB_OFF);
+		//_base.set_data(digital, RGBLED_OFFSET + i, RGB_OFF);
 	}
-	_base.set_data(digital, RGBLED_BLU_PIN, RGB_ON);
+	//_base.set_data(digital, RGBLED_BLU_PIN, RGB_ON);
 }

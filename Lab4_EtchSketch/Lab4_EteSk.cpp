@@ -22,8 +22,7 @@
 #include "CSketch.h"
 #include "CPong.h"
 #include "CAsteroid_Game.h"
-
-
+#include "CImage_Ex.h"
 
 using namespace std;
 
@@ -38,6 +37,8 @@ int main(int argc, char* argv[])
 		cout << " (4), Etch-e-Sketch" << endl;
 		cout << " (5), Pong" << endl;
 		cout << " (6), Asteroids" << endl;
+		cout << " (8), Image Process" << endl;
+		cout << " (Q), Quit" << endl;
 		cout << " >>";
 		cin >> cmd;
 
@@ -66,7 +67,18 @@ int main(int argc, char* argv[])
 			asteroid.run();
 			break;
 		}
-			
+
+		case '8':
+		{
+			cout << "Image Process experiments" << endl << endl;
+			CImage_Ex image_Ex;
+			image_Ex.run();
+			break;
+
+		}
+		
+		case 'Q':
+			return 0;
 		case 'q':
 			return 0;
 

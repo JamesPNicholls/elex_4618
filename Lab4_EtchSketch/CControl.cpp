@@ -149,6 +149,11 @@ bool CControl::get_button(int channel, bool button_Flag)
     return false;
 }
 
+bool servo_Test()
+{
+
+}
+
 bool CControl::get_data_poll(int type, int channel)
 {
     int result = 0;

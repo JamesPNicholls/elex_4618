@@ -87,6 +87,8 @@ bool get_button();
 * @return	true if data was written succesfully, false if otherwise
 */
 bool set_servo();
+
+void control_Servo();
 };
 
 

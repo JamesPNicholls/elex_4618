@@ -132,4 +132,3 @@ enum channel_ {
 	analog_Convesion_Factor = 1024,
 	percentile_Factor = 100,
 };
->>>>>>> 08f1f530ac56a68195accf612947a386a4b5982d:Lab7_LinuxPong/lab7_Linux/CControl.h

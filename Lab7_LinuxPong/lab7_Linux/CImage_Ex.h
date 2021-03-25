@@ -12,7 +12,7 @@ class CImage_Ex : public CBase4618
 *	make it find an image on the camera
 *	make it repsond to colour
 *	port to linux
-* 
+*
 */
 public:
 	CImage_Ex();
@@ -20,11 +20,11 @@ public:
 	void run();
 
 private:
-	
+
 	cv::VideoCapture vid;
 
 	bool camera_Thread_Flag;
-	bool servo_Thread_Flag;
+	bool command_Thread_Flag;
 	bool exit_Flag;
 
 	//Green
@@ -50,7 +50,7 @@ private:
 	static const int S_MAX_Y = 256;
 	static const int V_MIN_Y = 150;
 	static const int V_MAX_Y = 256;
-	
+
 	int H_MIN = 0;
 	int H_MAX = 256;
 	int S_MIN = 0;
@@ -58,8 +58,9 @@ private:
 	int V_MIN = 0;
 	int V_MAX = 256;
 	//default capture width and height
+	//keep these values the same or the picture gets messed up
 	const int FRAME_WIDTH = 640;
-	const int FRAME_HEIGHT = 480;
+	const int FRAME_HEIGHT = 400;
 	//max number of objects to be detected in frame
 	const int MAX_NUM_OBJECTS = 50;
 	//minimum and maximum object area
@@ -77,21 +78,17 @@ private:
 	void update();
 	void draw();
 	static void on_trackbar(int, void*);
-	 void createTrackbars();
+    void createTrackbars();
 
 	void start_Thread();
 	static void camera_Thread(CImage_Ex* ptr);
-	static void servo_Thread(CImage_Ex* ptr);
+	static void command_Thread(CImage_Ex* ptr);
 
-	 void process_Camera_Image();
+    void process_Camera_Image();bool find_Colour(cv::Mat HSV, cv::Mat& colour, int H_MIN, int H_MAX, int S_MIN, int S_MAX, int V_MIN, int V_MAX);
 
 
-
-	bool find_Colour(cv::Mat HSV, cv::Mat& colour, int H_MIN, int H_MAX, int S_MIN, int S_MAX, int V_MIN, int V_MAX);
-
-	
 	void morphOps(Mat& thresh);
-	
+
 
 
 };

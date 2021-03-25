@@ -7,7 +7,6 @@ using namespace cv;
 
 CImage_Ex::CImage_Ex()
 {
-
 }
 
 CImage_Ex::~CImage_Ex()
@@ -22,36 +21,6 @@ void CImage_Ex::update()
 void  CImage_Ex::draw()
 {
 
-}
-
-void CImage_Ex::on_trackbar(int, void*)
-{
-	//Used by cv::createTrackbars() to avoid global variables
-}
-
-void CImage_Ex::createTrackbars()
-{
-	//create window for trackbars
-	namedWindow(trackbarWindowName, 0);
-	//create memory to store trackbar name on window
-	char TrackbarName[50];
-	sprintf_s(TrackbarName, "H_MIN", H_MIN);
-	sprintf_s(TrackbarName, "H_MAX", H_MAX);
-	sprintf_s(TrackbarName, "S_MIN", S_MIN);
-	sprintf_s(TrackbarName, "S_MAX", S_MAX);
-	sprintf_s(TrackbarName, "V_MIN", V_MIN);
-	sprintf_s(TrackbarName, "V_MAX", V_MAX);
-	//create trackbars and insert them into window
-	//3 parameters are: the address of the variable that is changing when the trackbar is moved(eg.H_LOW),
-	//the max value the trackbar can move (eg. H_HIGH),
-	//and the function that is called whenever the trackbar is moved(eg. on_trackbar)
-	//                                  ---->    ---->     ---->
-	createTrackbar("H_MIN", trackbarWindowName, &H_MIN, H_MAX, on_trackbar);
-	createTrackbar("H_MAX", trackbarWindowName, &H_MAX, H_MAX, on_trackbar);
-	createTrackbar("S_MIN", trackbarWindowName, &S_MIN, S_MAX, on_trackbar);
-	createTrackbar("S_MAX", trackbarWindowName, &S_MAX, S_MAX, on_trackbar);
-	createTrackbar("V_MIN", trackbarWindowName, &V_MIN, V_MAX, on_trackbar);
-	createTrackbar("V_MAX", trackbarWindowName, &V_MAX, V_MAX, on_trackbar);
 }
 
 void CImage_Ex::morphOps(Mat& thresh)
@@ -101,10 +70,10 @@ bool CImage_Ex::find_Colour(Mat HSV, Mat& colour, int H_MIN_C, int H_MAX_C, int 
 void CImage_Ex::start_Thread()
 {
 	std::thread t1(&CImage_Ex::camera_Thread, this);
-	std::thread t2(&CImage_Ex::servo_Thread, this);
-
+	std::thread t2(&CImage_Ex::command_Thread, this);
 	t1.detach();
 	t2.detach();
+
 }
 
 void CImage_Ex::camera_Thread(CImage_Ex* ptr)
@@ -112,28 +81,84 @@ void CImage_Ex::camera_Thread(CImage_Ex* ptr)
 	while (ptr->camera_Thread_Flag == true)
 	{
 		ptr->process_Camera_Image();
-		cout << "Camera" << endl;
+		auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
+		std::this_thread::sleep_until(end);
 	}
 	cout << "Camera Closed" << endl;
 }
 
-void CImage_Ex::servo_Thread(CImage_Ex* ptr)
+void manual_Sort()
 {
+    char cmd;
+    cout << "**********" << endl;
+    cout << " Controls " << endl;
+    cout << "**********" << endl;
+    cout << " (Y) Correct Colour" << endl;
+    cout << " (N) Wrong Colour" << endl;
+    cout << " (Q) Quit";
+    do
+    {
+        cout << "\n CMD>";
+        cin >> cmd;
+        switch(cmd)
+        {
+            case 'Y':
+                gpioServo(15,2000);
+                gpioServo(14,2000);
+                break;
 
-	while (ptr->servo_Thread_Flag == true)
-	{
-		auto end = std::chrono::steady_clock::now() + std::chrono::seconds(1);
-		std::this_thread::sleep_until(end);
-		cout << "Servo";
-	}
-	cout << "Servo Closed\t";
+            case 'N':
+                gpioServo(15, 1500);
+                gpioServo(14, 1500);
+                break;
+
+            case 'Q':
+                break;
+
+            default:
+                cout << "Please use only capital letters" << endl;
+        }
+
+    }while(cmd != 'Q');
+
 }
 
-//later when i have a pi again
-//void CImage_Ex::do_servo_Stuff()
-//{
-//
-//}
+void auto_Sort()
+{
+
+
+}
+
+void CImage_Ex::command_Thread(CImage_Ex* ptr)
+{
+    char cmd;
+    while(ptr->command_Thread_Flag = true)
+    {
+        cout << "\n******" << endl;
+        cout << " Sorting Mode " << endl;
+        cout << "******" << endl;
+        cout << " (M)anual Mode" << endl;
+        cout << " (A)uto Mode" << endl;
+        cout << " (Q)uit" << endl;
+        cout << " >";
+        switch(cmd)
+        {
+            case 'M':
+                manual_Sort();
+                break;
+            case 'A':
+                //auto_Sort();
+                break;
+            case 'Q':
+                //ptr->command_Thread_Flag = false;//wait 100ms so that the command_Thread_Flag has time to close
+                auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
+                std::this_thread::sleep_until(end);
+
+                break;
+        }
+
+    }
+}
 
 void CImage_Ex::process_Camera_Image()
 {
@@ -149,44 +174,52 @@ void CImage_Ex::process_Camera_Image()
 			cvtColor(camera, HSV, COLOR_BGR2HSV);
 
 			is_Yellow	= find_Colour(HSV, yellow, H_MIN_Y, H_MAX_Y, S_MIN_Y, S_MAX_Y, V_MIN_Y, V_MAX_Y);
-			is_Blue		= find_Colour(HSV, blue, H_MIN_B, H_MAX_B, S_MIN_B, S_MAX_B, V_MIN_B, V_MAX_B);
-			is_Green	= find_Colour(HSV, green, H_MIN_G, H_MAX_G, S_MIN_G, S_MAX_G, V_MIN_G, V_MAX_G);
+			//is_Blue		= find_Colour(HSV, blue, H_MIN_B, H_MAX_B, S_MIN_B, S_MAX_B, V_MIN_B, V_MAX_B);
+			//is_Green	= find_Colour(HSV, green, H_MIN_G, H_MAX_G, S_MIN_G, S_MAX_G, V_MIN_G, V_MAX_G);
 
 			if (camera.empty() == false)
 			{
 				imshow("Camera Feed", camera);
 				//imshow(windowName1, HSV);
 				//imshow(windowName2, threshold);
-				/*imshow(windowName3, blue);
-				imshow(windowName4, green);
-				imshow(windowName5, yellow);*/
+				//imshow(windowName3, blue);
+				//imshow(windowName4, green);
+				//imshow(windowName5, yellow);
 
 			}
-			cout << "Camera" << endl;
+			else
+			{
+                exit_Flag = false;
+			}
 		} while ((cv::waitKey(1) != 'q') && (camera_Thread_Flag == true));
 		exit_Flag = false;
 	}
 }
 
+
+
 void  CImage_Ex::run()
 {
+    char cmd;
 	vid.open(0);
 	vid.set(CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	vid.set(CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
-	
+
 	camera_Thread_Flag = true;
-	servo_Thread_Flag = true;
+	command_Thread_Flag = true;
 	exit_Flag = true;
-	
+
 	start_Thread();
+
 	while (exit_Flag == true)
 	{
-
 	}
-	
-	cout << "Closing Threads";
-	camera_Thread_Flag = false;
-	servo_Thread_Flag = false;
 
-	std::this_thread::sleep_for(std::chrono::seconds(1));	
+	cout << "Closing Threads";
+
+	camera_Thread_Flag  = false;
+	command_Thread_Flag = false;
+
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	cv::destroyAllWindows();
 }

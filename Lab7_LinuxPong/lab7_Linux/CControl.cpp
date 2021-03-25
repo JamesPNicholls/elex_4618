@@ -1,4 +1,3 @@
-<<<<<<< HEAD:Lab8_LinuxPong/CControl.cpp
 #include "stdafx.h"
 #include "CControl.h"
 #include "CSorter.h"
@@ -21,7 +20,6 @@ CControl::~CControl()
 bool CControl::init_com(int com_Port_Num)
 {
     //string com_String = "COM" + to_string(com_Port_Num);
-=======
 #include "stdafx.h"
 #include "CControl.h"
 #include <string>
@@ -43,7 +41,7 @@ CControl::~CControl()
 bool CControl::init_com(int com_Port_Num)
 {
     //string com_String = "COM" + to_string(com_Port_Num);
->>>>>>> 08f1f530ac56a68195accf612947a386a4b5982d:Lab7_LinuxPong/lab7_Linux/CControl.cpp
+
 	//_com.open(com_String, 115200);
 	//gpioSetMode(19, PI_INPUT);  // PB1
 	//gpioSetMode(26, PI_INPUT);  // PB2
@@ -125,7 +123,6 @@ bool CControl::get_analog(int type, int channel)
             return false;
         }
     }while((gpioTick() - start_Time) < 10000000);
-<<<<<<< HEAD:Lab8_LinuxPong/CControl.cpp
 
     return true;
 }
@@ -182,9 +179,7 @@ bool CControl::get_data_poll(int type, int channel)
         }
     }
     return true;
-=======
 
-    return true;
 }
 
 bool CControl::set_data(int type, int channel, int val)

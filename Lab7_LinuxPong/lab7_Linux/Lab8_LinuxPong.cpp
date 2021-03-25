@@ -5,8 +5,8 @@
 #include <opencv2/opencv.hpp>
 
 #include "CBase4618.h"
-#include "CControl.h"
-#include "CPong.h"
+//#include "CControl.h"
+//#include "CPong.h"
 #include "CImage_Ex.h"
 
 using namespace std;

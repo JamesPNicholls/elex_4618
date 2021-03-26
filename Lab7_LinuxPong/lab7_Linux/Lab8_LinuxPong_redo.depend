@@ -106,7 +106,7 @@
 1616641352 source:/home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/stdafx.cpp
 	"stdafx.h"
 
-1616645888 source:/home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/Lab8_LinuxPong.cpp
+1616700554 source:/home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/Lab8_LinuxPong.cpp
 	"stdafx.h"
 	<iostream>
 	<pigpio.h>
@@ -114,11 +114,11 @@
 	"CBase4618.h"
 	"CImage_Ex.h"
 
-1616650916 /home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/CImage_Ex.h
+1616774190 /home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/CImage_Ex.h
 	"CBase4618.h"
 	<string>
 
-1616650883 source:/home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/CImage_Ex.cpp
+1616773946 source:/home/pi/Documents/elex_4618/Lab7_LinuxPong/lab7_Linux/CImage_Ex.cpp
 	"stdafx.h"
 	"CImage_Ex.h"
 	<thread>

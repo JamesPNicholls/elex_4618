@@ -22,26 +22,27 @@ int main()
     }
     else
     {
-        do
-        {
-            cout << "Press S to start, or Q to quit:\n >>:";
-            cin >> cmd;
-
-            switch(cmd)
-            {
-                case 's':
-                {
-                    cout << "Starting Cameras\n";
-                    CImage_Ex Image_Ex;
-                    Image_Ex.run();
-                    break;
-                }
-                case 'q':
-                    cout << "Ending program";
-                    gpioTerminate();
-                    return 0;
-            }
-        }while(cmd != '0');
+        CImage_Ex Image_Ex;
+        Image_Ex.run();
+//        do
+//        {
+//            cout << "Press S to start, or Q to quit:\n >>:";
+//            //cin >> cmd;
+//
+//            switch(cmd)
+//            {
+//                case 's':
+//                {
+//                    cout << "Starting Cameras\n";
+//
+//                    break;
+//                }
+//                case 'q':
+//                    cout << "Ending program";
+//                    gpioTerminate();
+//                    return 0;
+//            }
+//        }while(cmd != '0');
     }
 
 }

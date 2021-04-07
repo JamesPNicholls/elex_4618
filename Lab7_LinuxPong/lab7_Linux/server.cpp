@@ -7,7 +7,6 @@
 #include "server.h"
 
 
-#ifdef PI4618
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 typedef int SOCKET;
@@ -20,7 +19,7 @@ typedef int SOCKET;
 #include <netinet/in.h>
 #include <netdb.h>
 #include <thread>
-#endif
+
 
 #define RECV_BUFF_SIZE 256
 
@@ -31,15 +30,12 @@ bool setblocking(int fd, bool blocking)
 {
    if (fd < 0) return false;
 
-#ifdef WIN4618
-   unsigned long mode = blocking ? 0 : 1;
-   return (ioctlsocket(fd, FIONBIO, &mode) == 0) ? true : false;
-#else
+
    int flags = fcntl(fd, F_GETFL, 0);
    if (flags < 0) return false;
    flags = blocking ? (flags&~O_NONBLOCK) : (flags|O_NONBLOCK);
    return (fcntl(fd, F_SETFL, flags) == 0) ? true : false;
-#endif
+
 }
 
 Server::Server()
@@ -75,31 +71,18 @@ void Server::start(int port)
   SOCKET serversock = 0;
   SOCKET clientsock = 0;
 
-#ifdef WIN4618
-  WSADATA wsdat;
- int addressSize = sizeof(server_addr);
-#endif
 
-#ifdef PI4618
   unsigned int addressSize = sizeof(server_addr);
-#endif
+
 
   char buff[BUFFER + 1]; // +1 for null
 
-#ifdef WIN4618
-  if (WSAStartup(0x0101, &wsdat))
-  {
-    WSACleanup();
-    return;
-  }
-#endif
+
 
   serversock = socket(AF_INET, SOCK_STREAM, 0);
   if (serversock == SOCKET_ERROR)
   {
-#ifdef WIN4618
-    WSACleanup();
-#endif
+
     std::cout << "Server Exit: socket error";
     return;
   }
@@ -107,9 +90,7 @@ void Server::start(int port)
   if (setblocking(serversock, false) == SOCKET_ERROR)
   {
     std::cout << "Server Exit: failed to set non-blocking";
-#ifdef WIN4618
-    WSACleanup();
-#endif
+
 
     return;
   }
@@ -120,13 +101,9 @@ void Server::start(int port)
 
   if (bind(serversock, (sockaddr *)&server_addr, sizeof(server_addr)) == SOCKET_ERROR)
   {
-#ifdef WIN4618
-    closesocket(serversock);
-    WSACleanup();
-#endif
-#ifdef PI4618
+
     close(serversock);
-#endif
+
     std::cout << "Server Exit: bind error";
     return;
   }
@@ -165,18 +142,16 @@ void Server::start(int port)
         // If socket was shut down orderly (client disconnected)
         if (ret == 0)
         {
-#ifdef PI4618
+
           close(clientsock);
-#endif
-#ifdef WIN4618
-          closesocket(clientsock);
-#endif
+
+
           clientsock = INVALID_SOCKET;
         }
         // Else some other error
         else if (ret == SOCKET_ERROR)
         {
-#ifdef PI4618
+
           //unsigned int len = sizeof(errno);
           //getsockopt(clientsock, SOL_SOCKET, SO_ERROR, &errno, &len);
 
@@ -190,19 +165,9 @@ void Server::start(int port)
             close(clientsock);
             clientsock = INVALID_SOCKET;
           }
-#endif
 
-#ifdef WIN4618
-          if (WSAGetLastError() == WSAEWOULDBLOCK)
-          {
-            // no data to recieve, go check again
-          }
-          else
-          {
-            closesocket(clientsock);
-            clientsock = INVALID_SOCKET;
-          }
-#endif
+
+
         }
         else
 				{
@@ -248,14 +213,9 @@ void Server::start(int port)
     }
   }
 
-#ifdef WIN4618
-  closesocket(serversock);
-  WSACleanup();
-#endif
 
-#ifdef PI4618
   close(serversock);
-#endif
+
 }
 
 void Server::get_cmd (std::vector<std::string> &cmds)
